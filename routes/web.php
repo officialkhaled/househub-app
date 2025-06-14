@@ -10,27 +10,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/list', [ProfileController::class, 'index'])->name('list');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [ProfileController::class, 'index'])->name('dashboard');
 
-    Route::resource('permissions', PermissionController::class);
-    Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'destroy']);
 
-    Route::resource('roles', RoleController::class);
-    Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
-    Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
-    Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
+    // Settings
+    Route::group(['prefix' => 'permissions', 'as' => 'permissions.'], function () {
+        Route::resource('', PermissionController::class);
+        Route::get('{permissionId}/delete', [PermissionController::class, 'destroy']);
+    });
 
-    Route::resource('users', UserController::class);
-    Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
+    Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {
+        Route::resource('', RoleController::class);
+        Route::get('{roleId}/delete', [RoleController::class, 'destroy']);
+        Route::get('{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
+        Route::put('{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
+    });
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::resource('', UserController::class);
+        Route::get('{userId}/delete', [UserController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+        Route::get('', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('', [ProfileController::class, 'update'])->name('update');
+        Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

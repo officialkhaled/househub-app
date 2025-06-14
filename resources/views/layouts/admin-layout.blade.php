@@ -28,6 +28,10 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/media/favicons/favicon-192x192.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/media/favicons/apple-touch-icon-180x180.png') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css') }}">
+
     <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/dashmix.min.css') }}">
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
@@ -84,7 +88,7 @@
 -->
 <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
     <!-- Side Overlay-->
-{{--    @include('layouts.partials.side-overlay')--}}
+    {{--    @include('layouts.partials.side-overlay')--}}
 
     <!-- Sidebar -->
     @include('layouts.partials.sidebar')
@@ -101,6 +105,22 @@
 </div>
 
 <script src="{{ asset('assets/js/dashmix.app.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/plugins/datatables/dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/pages/be_tables_datatables.min.js') }}"></script>
 
 @yield('scripts')
 
