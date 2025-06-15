@@ -125,6 +125,27 @@
 <script src="{{ asset('assets/js/pages/be_pages_ecom_dashboard.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/be_tables_datatables.min.js') }}"></script>
 
+<script>
+    function previewAvatar(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview_avatar');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function pageRefresh() {
+        window.location.reload();
+    }
+</script>
+
 @yield('scripts')
 
 </body>

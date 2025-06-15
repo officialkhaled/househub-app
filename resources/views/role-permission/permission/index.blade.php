@@ -19,10 +19,12 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">Permissions</h3>
-                <a href="{{ route('permissions.create') }}" class="btn btn-primary">
-                    <i class="fa-solid fa-plus me-1"></i>
-                    Add
-                </a>
+                @can('create permission')
+                    <a href="{{ route('permissions.create') }}" class="btn btn-primary">
+                        <i class="fa-solid fa-plus me-1"></i>
+                        Add
+                    </a>
+                @endcan
             </div>
 
             <div class="block-content">
@@ -42,18 +44,22 @@
                                 <td class="fw-semibold">{{ $permission->name }}</td>
                                 <td class="d-none d-sm-table-cell">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-alt-success"
-                                           data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
-                                            <i class="fa-solid fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-alt-danger"
-                                                    data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Delete">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @can('update permission')
+                                            <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-alt-success"
+                                               data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
+                                                <i class="fa-solid fa-edit"></i>
+                                            </a>
+                                        @endcan
+                                        @can('delete permission')
+                                            <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-alt-danger"
+                                                        data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Delete">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Settings;
 
+use DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -19,7 +20,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = Role::get();
+        $roles = Role::latest()->get();
         return view('role-permission.role.index', ['roles' => $roles]);
     }
 
@@ -38,11 +39,25 @@ class RoleController extends Controller
             ]
         ]);
 
-        Role::create([
-            'name' => $request->name
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return redirect('roles')->with('status', 'Role Created Successfully');
+            Role::create([
+                'name' => $request->name
+            ]);
+
+            DB::commit();
+
+            notyf()->addSuccess('Role Created Successfully.');
+
+            return redirect()->route('roles.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
     public function edit(Role $role)
@@ -62,18 +77,46 @@ class RoleController extends Controller
             ]
         ]);
 
-        $role->update([
-            'name' => $request->name
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return redirect('roles')->with('status', 'Role Updated Successfully');
+            $role->update([
+                'name' => $request->name
+            ]);
+
+            DB::commit();
+
+            notyf()->addSuccess('Role Updated Successfully.');
+
+            return redirect()->route('roles.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
-    public function destroy($roleId)
+    public function destroy(Role $role)
     {
-        $role = Role::find($roleId);
-        $role->delete();
-        return redirect('roles')->with('status', 'Role Deleted Successfully');
+        try {
+            DB::beginTransaction();
+
+            $role->delete();
+
+            notyf()->addSuccess('Role Deleted Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('roles.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back();
+        }
     }
 
     public function addPermissionToRole($roleId)

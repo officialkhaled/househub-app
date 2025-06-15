@@ -1,76 +1,79 @@
-<x-app-layout>
+@extends('layouts.admin-layout')
+@section('title', 'Roles')
+@section('content')
 
-    <div class="container mt-5">
-        <a href="{{ route('permissions.index') }}" class="btn btn-primary btn-sm mx-1">
-            <i class="fa-solid fa-key opacity-75"></i>&nbsp;&nbsp;Permissions
-        </a>
-        <a href="{{ route('roles.index') }}" class="btn btn-warning btn-sm mx-1">
-            <i class="fa-solid fa-person-circle-question opacity-75"></i>&nbsp;&nbsp;Roles
-        </a>
-        <a href="{{ route('users.index') }}" class="btn btn-success btn-sm mx-1">
-            <i class="fa-solid fa-user-group opacity-75"></i>&nbsp;&nbsp;Users
-        </a>
+    <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Dashboard</li>
+                        <li class="breadcrumb-item active" aria-current="page">Roles</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
     </div>
 
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-md-12">
+    <div class="content">
+        <div class="block block-rounded">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Roles</h3>
+                @can('create role')
+                    <a href="{{ route('roles.create') }}" class="btn btn-primary">
+                        <i class="fa-solid fa-plus me-1"></i>
+                        Add
+                    </a>
+                @endcan
+            </div>
 
-                @if (session('status'))
-                    <div class="alert alert-success mt-2">{{ session('status') }}</div>
-                @endif
-
-                <div class="card mt-3 mb-6">
-                    <div class="card-header">
-                        <h2><b>Roles</b>
-                            @can('create role')
-                                <a href="{{ route('roles.create') }}" class="btn btn-primary float-end">
-                                    <i class="fa-solid fa-plus opacity-75"></i>&nbsp;&nbsp;Add
-                                </a>
-                            @endcan
-                        </h2>
-                    </div>
-
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped">
-                            <thead>
+            <div class="block-content">
+                <div class="block-content block-content-full overflow-x-auto">
+                    <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 10%;">ID</th>
+                            <th>Name</th>
+                            <th class="d-none d-sm-table-cell" style="width: 35%;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($roles as $role)
                             <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th width="40%">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($roles as $role)
-                                <tr>
-                                    <td>{{ $role->id }}</td>
-                                    <td>{{ $role->name }}</td>
-                                    <td>
-                                        <a href="{{ url('roles/'.$role->id.'/give-permissions') }}" class="btn btn-warning">
-                                            <i class="fa-solid fa-plus opacity-75"></i>&nbsp;&nbsp;Add / Edit Role Permission
-                                        </a>
-
+                                <td class="text-center">{{ $loop->index + 1 }}</td>
+                                <td class="fw-semibold">{{ $role->name }}</td>
+                                <td class="d-none d-sm-table-cell">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @can('create role')
+                                            <a href="{{ url('roles/'.$role->id.'/give-permissions') }}" class="btn btn-alt-warning">
+                                                <i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add/Edit Role Permission
+                                            </a>
+                                        @endcan
                                         @can('update role')
-                                            <a href="{{ url('roles/'.$role->id.'/edit') }}" class="btn btn-success">
-                                                <i class="fa-solid fa-pen-to-square opacity-75"></i>&nbsp;&nbsp;Edit
+                                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-alt-success"
+                                               data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
+                                                <i class="fa-solid fa-edit"></i>
                                             </a>
                                         @endcan
-
                                         @can('delete role')
-                                            <a href="{{ url('roles/'.$role->id.'/delete') }}" class="btn btn-danger mx-2">
-                                                <i class="fa-solid fa-trash opacity-75"></i>&nbsp;&nbsp;Delete
-                                            </a>
+                                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-alt-danger"
+                                                        data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Delete">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
                                         @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-</x-app-layout>
+@endsection

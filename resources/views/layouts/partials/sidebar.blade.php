@@ -132,46 +132,41 @@
 
                 <li class="nav-main-heading">Building Management</li>
 
-                <li class="nav-main-item {{ request()->routeIs('list*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('list') ? 'active' : '' }}" href="#">
+                <li class="nav-main-item {{ request()->routeIs('buildings*') ? 'open' : '' }}">
+                    <a class="nav-main-link {{ request()->routeIs('buildings*') ? 'active' : '' }}" href="#">
                         <i class="nav-main-link-icon fa fa-building"></i>
                         <span class="nav-main-link-name">Buildings</span>
-                        {{--                        <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>--}}
                     </a>
                 </li>
 
-                <li class="nav-main-item {{ request()->routeIs('list*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('list') ? 'active' : '' }}" href="#">
+                <li class="nav-main-item {{ request()->routeIs('floors*') ? 'open' : '' }}">
+                    <a class="nav-main-link {{ request()->routeIs('floors*') ? 'active' : '' }}" href="#">
                         <i class="nav-main-link-icon fa fa-layer-group"></i>
                         <span class="nav-main-link-name">Floors</span>
-                        {{--                        <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>--}}
                     </a>
                 </li>
 
-                <li class="nav-main-item {{ request()->routeIs('list*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('list') ? 'active' : '' }}" href="#">
+                <li class="nav-main-item {{ request()->routeIs('flats*') ? 'open' : '' }}">
+                    <a class="nav-main-link {{ request()->routeIs('flats*') ? 'active' : '' }}" href="#">
                         <i class="nav-main-link-icon fa fa-door-closed"></i>
                         <span class="nav-main-link-name">Flats</span>
-                        {{--                        <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>--}}
                     </a>
                 </li>
 
-                <li class="nav-main-item {{ request()->routeIs('list*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('list*') ? 'active' : '' }}" href="#">
+                <li class="nav-main-item {{ request()->routeIs('utilities*') ? 'open' : '' }}">
+                    <a class="nav-main-link {{ request()->routeIs('utilities*') ? 'active' : '' }}" href="#">
                         <i class="nav-main-link-icon fa fa-money-bills"></i>
                         <span class="nav-main-link-name">Utilities</span>
-                        {{--                        <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>--}}
                     </a>
                 </li>
 
 
                 <li class="nav-main-heading">Reports</li>
 
-                <li class="nav-main-item {{ request()->routeIs('list*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('list') ? 'active' : '' }}" href="#">
+                <li class="nav-main-item {{ request()->routeIs('month-wise-reports*') ? 'open' : '' }}">
+                    <a class="nav-main-link {{ request()->routeIs('month-wise-reports*') ? 'active' : '' }}" href="#">
                         <i class="nav-main-link-icon fa fa-calendar-week"></i>
                         <span class="nav-main-link-name">Month Wise Report</span>
-                        {{--                        <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>--}}
                     </a>
                 </li>
 
@@ -186,14 +181,14 @@
                 </li>
 
                 <li class="nav-main-item {{ request()->routeIs('roles*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('roles') ? 'active' : '' }}" href="{{ route('roles.index') }}">
+                    <a class="nav-main-link {{ request()->routeIs('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
                         <i class="nav-main-link-icon fa fa-user-lock"></i>
                         <span class="nav-main-link-name">Roles</span>
                     </a>
                 </li>
 
                 <li class="nav-main-item {{ request()->routeIs('users*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('users') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                    <a class="nav-main-link {{ request()->routeIs('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                         <i class="nav-main-link-icon fa fa-users"></i>
                         <span class="nav-main-link-name">Users</span>
                     </a>

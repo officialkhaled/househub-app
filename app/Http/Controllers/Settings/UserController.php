@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Settings;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -19,7 +20,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::get();
+        $users = User::latest()->get();
         return view('role-permission.user.index', ['users' => $users]);
     }
 
@@ -85,9 +86,8 @@ class UserController extends Controller
         return redirect('/users')->with('status', 'User Updated Successfully with roles');
     }
 
-    public function destroy($userId)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($userId);
         $user->delete();
 
         return redirect('/users')->with('status', 'User Delete Successfully');
