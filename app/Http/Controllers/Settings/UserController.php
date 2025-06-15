@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -39,15 +40,29 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        try {
+            DB::beginTransaction();
 
-        $user->syncRoles($request->roles);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-        return redirect('/users')->with('status', 'User created successfully with roles');
+            $user->syncRoles($request->roles);
+
+            DB::commit();
+
+            notyf()->addSuccess('User Created Successfully.');
+
+            return redirect()->route('users.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
     public function edit(User $user)
@@ -69,27 +84,55 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
+        try {
+            DB::beginTransaction();
 
-        if (!empty($request->password)) {
-            $data += [
-                'password' => Hash::make($request->password),
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
             ];
+
+            if (!empty($request->password)) {
+                $data += [
+                    'password' => Hash::make($request->password),
+                ];
+            }
+
+            $user->update($data);
+            $user->syncRoles($request->roles);
+
+            DB::commit();
+
+            notyf()->addSuccess('User Updated Successfully.');
+
+            return redirect()->route('users.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
         }
-
-        $user->update($data);
-        $user->syncRoles($request->roles);
-
-        return redirect('/users')->with('status', 'User Updated Successfully with roles');
     }
 
     public function destroy(User $user)
     {
-        $user->delete();
+        try {
+            DB::beginTransaction();
 
-        return redirect('/users')->with('status', 'User Delete Successfully');
+            $user->delete();
+
+            notyf()->addSuccess('User Deleted Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('users.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back();
+        }
     }
 }
