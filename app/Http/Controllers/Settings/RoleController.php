@@ -144,6 +144,8 @@ class RoleController extends Controller
         $role = Role::findOrFail($roleId);
         $role->syncPermissions($request->permission);
 
-        return redirect()->back()->with('status', 'Permissions added to role');
+        notyf()->addSuccess('Permission Added to Role Successfully.');
+
+        return redirect()->back();
     }
 }
