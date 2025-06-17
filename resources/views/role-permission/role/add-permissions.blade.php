@@ -19,7 +19,7 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Role:
+                <h3 class="block-title fw-bold">Role:
                     <span class="badge bg-primary">
                         {{ $role->name }}
                     </span>

@@ -18,7 +18,7 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Permissions</h3>
+                <h3 class="block-title fw-bold">Permissions</h3>
                 @can('create permission')
                     <a href="{{ route('permissions.create') }}" class="btn btn-primary">
                         <i class="fa-solid fa-plus me-1"></i>

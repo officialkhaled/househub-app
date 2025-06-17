@@ -2,10 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Utility extends Model
 {
-    use HasFactory;
+    protected $table = 'utilities';
+
+    protected $fillable = [
+        'flat_id',
+        'name',
+        'amount',
+    ];
+
+    public function flat(): BelongsTo
+    {
+        return $this->belongsTo(Flat::class, 'flat_id')->withDefault();
+    }
 }

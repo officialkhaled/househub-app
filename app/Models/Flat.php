@@ -2,10 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Flat extends Model
 {
-    use HasFactory;
+    protected $table = 'flats';
+
+    protected $fillable = [
+        'floor_id',
+        'name',
+        'number_of_rooms',
+        'sqft_size',
+        'rent_fee',
+        'status',
+        'renting_start_month',
+        'leaving_month',
+    ];
+
+    public function flat(): BelongsTo
+    {
+        return $this->belongsTo(Floor::class, 'floor_id')->withDefault();
+    }
 }

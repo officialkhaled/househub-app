@@ -2,64 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Building;
 use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:view building', ['only' => ['index']]);
+        $this->middleware('permission:create building', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update building', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete building', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        //
+        $buildings = Building::latest()->get();
+
+        return view('buildings.index', [
+            'buildings' => $buildings,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('buildings.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Building $building)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Building $building)
     {
-        //
+        return view('buildings.edit', [
+            'building' => $building,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Building $building)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Building $building)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $building->delete();
+
+            notyf()->addSuccess('Building Deleted Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('buildings.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back();
+        }
     }
 }

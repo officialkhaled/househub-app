@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\RoleController;
@@ -15,6 +16,14 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::group(['prefix' => 'buildings', 'as' => 'buildings.'], function () {
+        Route::get('', [BuildingController::class, 'index'])->name('index');
+        Route::get('/create', [BuildingController::class, 'create'])->name('create');
+        Route::post('', [BuildingController::class, 'store'])->name('store');
+        Route::get('{building}/edit', [BuildingController::class, 'edit'])->name('edit');
+        Route::put('{building}', [BuildingController::class, 'update'])->name('update');
+        Route::delete('{building}', [BuildingController::class, 'destroy'])->name('destroy');
+    });
 
     // Settings
     Route::group(['prefix' => 'permissions', 'as' => 'permissions.'], function () {

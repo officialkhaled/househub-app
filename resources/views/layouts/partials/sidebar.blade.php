@@ -133,7 +133,7 @@
                 <li class="nav-main-heading">Building Management</li>
 
                 <li class="nav-main-item {{ request()->routeIs('buildings*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('buildings*') ? 'active' : '' }}" href="#">
+                    <a class="nav-main-link {{ request()->routeIs('buildings*') ? 'active' : '' }}" href="{{ route('buildings.index') }}">
                         <i class="nav-main-link-icon fa fa-building"></i>
                         <span class="nav-main-link-name">Buildings</span>
                     </a>

@@ -19,13 +19,11 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Edit Permission</h3>
-                @can('create permission')
-                    <a href="{{ route('permissions.index') }}" class="btn btn-primary">
-                        <i class="fa-solid fa-arrow-left me-1"></i>
-                        Back
-                    </a>
-                @endcan
+                <h3 class="block-title fw-bold">Edit Permission</h3>
+                <a href="{{ route('permissions.index') }}" class="btn btn-primary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>
+                    Back
+                </a>
             </div>
 
             <div class="block-content block-content-full overflow-x-auto">
