@@ -13,6 +13,7 @@ class Utility extends Model
         'flat_id',
         'name',
         'amount',
+        'status',
     ];
 
     public function flat(): BelongsTo

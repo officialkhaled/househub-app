@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\Flat;
+use App\Models\Floor;
 use Illuminate\Http\Request;
 
 class FlatController extends Controller
@@ -18,7 +19,7 @@ class FlatController extends Controller
 
     public function index()
     {
-        $flats = Flat::latest()->get();
+        $flats = Flat::with('floor')->latest()->get();
 
         return view('flats.index', [
             'flats' => $flats,
@@ -27,7 +28,11 @@ class FlatController extends Controller
 
     public function create()
     {
-        return view('flats.create');
+        $floors = Floor::latest()->get();
+
+        return view('flats.create', [
+            'floors' => $floors,
+        ]);
     }
 
     public function store(Request $request)
@@ -73,8 +78,11 @@ class FlatController extends Controller
 
     public function edit(Flat $flat)
     {
+        $floors = Floor::latest()->get();
+
         return view('flats.edit', [
             'flat' => $flat,
+            'floors' => $floors,
         ]);
     }
 

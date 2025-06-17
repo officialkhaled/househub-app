@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Models\Flat;
 use App\Models\Utility;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class UtilityController extends Controller
 
     public function index()
     {
-        $utilities = Utility::latest()->get();
+        $utilities = Utility::with('flat')->latest()->get();
 
         return view('utilities.index', [
             'utilities' => $utilities,
@@ -27,7 +28,11 @@ class UtilityController extends Controller
 
     public function create()
     {
-        return view('utilities.create');
+        $flats = Flat::where('status', '=', 'active')->latest()->get();
+
+        return view('utilities.create', [
+            'flats' => $flats,
+        ]);
     }
 
     public function store(Request $request)
@@ -65,8 +70,11 @@ class UtilityController extends Controller
 
     public function edit(Utility $utility)
     {
+        $flats = Flat::where('status', '=', 'active')->latest()->get();
+
         return view('utilities.edit', [
             'utility' => $utility,
+            'flats' => $flats,
         ]);
     }
 

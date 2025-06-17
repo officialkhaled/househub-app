@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\Floor;
+use App\Models\Building;
 use Illuminate\Http\Request;
 
 class FloorController extends Controller
@@ -18,7 +19,7 @@ class FloorController extends Controller
 
     public function index()
     {
-        $floors = Floor::latest()->get();
+        $floors = Floor::with('building')->latest()->get();
 
         return view('floors.index', [
             'floors' => $floors,
@@ -27,7 +28,11 @@ class FloorController extends Controller
 
     public function create()
     {
-        return view('floors.create');
+        $buildings = Building::where('status', '=', 'active')->latest()->get();
+
+        return view('floors.create', [
+            'buildings' => $buildings,
+        ]);
     }
 
     public function store(Request $request)
@@ -64,8 +69,11 @@ class FloorController extends Controller
 
     public function edit(Floor $floor)
     {
+        $buildings = Building::where('status', '=', 'active')->latest()->get();
+
         return view('floors.edit', [
             'floor' => $floor,
+            'buildings' => $buildings,
         ]);
     }
 
