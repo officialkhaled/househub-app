@@ -2,64 +2,123 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Floor;
 use Illuminate\Http\Request;
 
 class FloorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:view floor', ['only' => ['index']]);
+        $this->middleware('permission:create floor', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update floor', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete floor', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        //
+        $floors = Floor::latest()->get();
+
+        return view('floors.index', [
+            'floors' => $floors,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('floors.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'building_id' => 'required',
+            'floor_number' => 'required',
+        ], [
+            'building_id.required' => 'Building is Required',
+            'floor_number.required' => 'Floor Number is Required',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            Floor::create([
+                'building_id' => $request->building_id,
+                'floor_number' => $request->floor_number,
+            ]);
+
+            notyf()->addSuccess('Floor Created Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('floors.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Floor $floor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Floor $floor)
     {
-        //
+        return view('floors.edit', [
+            'floor' => $floor,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Floor $floor)
     {
-        //
+        $request->validate([
+            'building_id' => 'required',
+            'floor_number' => 'required',
+        ], [
+            'building_id.required' => 'Building is Required',
+            'floor_number.required' => 'Floor Number is Required',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $floor->update([
+                'building_id' => $request->building_id,
+                'floor_number' => $request->floor_number,
+            ]);
+
+            notyf()->addSuccess('Floor Updated Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('floors.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Floor $floor)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $floor->delete();
+
+            notyf()->addSuccess('Floor Deleted Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('floors.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back();
+        }
     }
 }

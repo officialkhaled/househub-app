@@ -18,9 +18,8 @@ return new class extends Migration {
             $table->unsignedTinyInteger('number_of_rooms');
             $table->unsignedInteger('sqft_size');
             $table->decimal('rent_fee', 10, 2);
-            $table->enum('status', ['available', 'rented', 'leaving_soon'])->default('available')->comment('Available, Rented, Leaving Soon');;
-            $table->date('renting_start_month')->nullable();
-            $table->date('leaving_month')->nullable();
+            $table->enum('status', ['available', 'rented', 'leaving_soon'])->default('available')
+                ->comment('Available, Rented, Leaving Soon');
 
             $table->timestamps();
         });

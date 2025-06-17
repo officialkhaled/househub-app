@@ -2,64 +2,125 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Utility;
 use Illuminate\Http\Request;
 
 class UtilityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:view utility', ['only' => ['index']]);
+        $this->middleware('permission:create utility', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update utility', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete utility', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        //
+        $utilities = Utility::latest()->get();
+
+        return view('utilities.index', [
+            'utilities' => $utilities,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('utilities.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+        ], [
+            'name.required' => 'Name is Required',
+            'amount.required' => 'Amount is Required',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            Utility::create([
+                'flat_id' => $request->flat_id,
+                'name' => $request->name,
+                'amount' => $request->amount
+            ]);
+
+            notyf()->addSuccess('Utility Created Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('utilities.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Utility $utility)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Utility $utility)
     {
-        //
+        return view('utilities.edit', [
+            'utility' => $utility,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Utility $utility)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+        ], [
+            'name.required' => 'Name is Required',
+            'amount.required' => 'Amount is Required',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $utility->update([
+                'flat_id' => $request->flat_id,
+                'name' => $request->name,
+                'amount' => $request->amount
+            ]);
+
+            notyf()->addSuccess('Utility Updated Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('utilities.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Utility $utility)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $utility->delete();
+
+            notyf()->addSuccess('Utility Deleted Successfully.');
+
+            DB::commit();
+
+            return redirect()->route('utilities.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong.');
+
+            return redirect()->back();
+        }
     }
 }

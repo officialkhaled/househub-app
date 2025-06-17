@@ -16,8 +16,6 @@ class Flat extends Model
         'sqft_size',
         'rent_fee',
         'status',
-        'renting_start_month',
-        'leaving_month',
     ];
 
     public function flat(): BelongsTo

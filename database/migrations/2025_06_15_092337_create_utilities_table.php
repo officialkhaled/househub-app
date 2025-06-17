@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('utilities', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('flat_id');
+            $table->unsignedBigInteger('flat_id')->nullable();
             $table->string('name');
             $table->decimal('amount', 10, 2);
 //            $table->enum('type', ['electricity', 'water', 'gas', 'other'])->default('other');

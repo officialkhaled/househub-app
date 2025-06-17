@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FlatController;
+use App\Http\Controllers\FloorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Settings\UserController;
@@ -16,6 +19,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+
     Route::group(['prefix' => 'buildings', 'as' => 'buildings.'], function () {
         Route::get('', [BuildingController::class, 'index'])->name('index');
         Route::get('/create', [BuildingController::class, 'create'])->name('create');
@@ -24,6 +28,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('{building}', [BuildingController::class, 'update'])->name('update');
         Route::delete('{building}', [BuildingController::class, 'destroy'])->name('destroy');
     });
+
+    Route::group(['prefix' => 'floors', 'as' => 'floors.'], function () {
+        Route::get('', [FloorController::class, 'index'])->name('index');
+        Route::get('/create', [FloorController::class, 'create'])->name('create');
+        Route::post('', [FloorController::class, 'store'])->name('store');
+        Route::get('{floor}/edit', [FloorController::class, 'edit'])->name('edit');
+        Route::put('{floor}', [FloorController::class, 'update'])->name('update');
+        Route::delete('{floor}', [FloorController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'flats', 'as' => 'flats.'], function () {
+        Route::get('', [FlatController::class, 'index'])->name('index');
+        Route::get('/create', [FlatController::class, 'create'])->name('create');
+        Route::post('', [FlatController::class, 'store'])->name('store');
+        Route::get('{flat}/edit', [FlatController::class, 'edit'])->name('edit');
+        Route::put('{flat}', [FlatController::class, 'update'])->name('update');
+        Route::delete('{flat}', [FlatController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'utilities', 'as' => 'utilities.'], function () {
+        Route::get('', [UtilityController::class, 'index'])->name('index');
+        Route::get('/create', [UtilityController::class, 'create'])->name('create');
+        Route::post('', [UtilityController::class, 'store'])->name('store');
+        Route::get('{utility}/edit', [UtilityController::class, 'edit'])->name('edit');
+        Route::put('{utility}', [UtilityController::class, 'update'])->name('update');
+        Route::delete('{utility}', [UtilityController::class, 'destroy'])->name('destroy');
+    });
+
 
     // Settings
     Route::group(['prefix' => 'permissions', 'as' => 'permissions.'], function () {
@@ -55,6 +87,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
     });
 
+
+    // Profile
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
         Route::get('', [ProfileController::class, 'edit'])->name('edit');
         Route::patch('', [ProfileController::class, 'update'])->name('update');

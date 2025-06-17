@@ -140,21 +140,21 @@
                 </li>
 
                 <li class="nav-main-item {{ request()->routeIs('floors*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('floors*') ? 'active' : '' }}" href="#">
+                    <a class="nav-main-link {{ request()->routeIs('floors*') ? 'active' : '' }}" href="{{ route('floors.index') }}">
                         <i class="nav-main-link-icon fa fa-layer-group"></i>
                         <span class="nav-main-link-name">Floors</span>
                     </a>
                 </li>
 
                 <li class="nav-main-item {{ request()->routeIs('flats*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('flats*') ? 'active' : '' }}" href="#">
+                    <a class="nav-main-link {{ request()->routeIs('flats*') ? 'active' : '' }}" href="{{ route('flats.index') }}">
                         <i class="nav-main-link-icon fa fa-door-closed"></i>
                         <span class="nav-main-link-name">Flats</span>
                     </a>
                 </li>
 
                 <li class="nav-main-item {{ request()->routeIs('utilities*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('utilities*') ? 'active' : '' }}" href="#">
+                    <a class="nav-main-link {{ request()->routeIs('utilities*') ? 'active' : '' }}" href="{{ route('utilities.index') }}">
                         <i class="nav-main-link-icon fa fa-money-bills"></i>
                         <span class="nav-main-link-name">Utilities</span>
                     </a>
