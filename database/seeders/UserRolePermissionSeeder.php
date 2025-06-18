@@ -16,30 +16,10 @@ class UserRolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Permissions
-        Permission::create(['name' => 'view role']);
-        Permission::create(['name' => 'create role']);
-        Permission::create(['name' => 'update role']);
-        Permission::create(['name' => 'delete role']);
-
-        Permission::create(['name' => 'view permission']);
-        Permission::create(['name' => 'create permission']);
-        Permission::create(['name' => 'update permission']);
-        Permission::create(['name' => 'delete permission']);
-
-        Permission::create(['name' => 'view user']);
-        Permission::create(['name' => 'create user']);
-        Permission::create(['name' => 'update user']);
-        Permission::create(['name' => 'delete user']);
-
-        Permission::create(['name' => 'view product']);
-        Permission::create(['name' => 'create product']);
-        Permission::create(['name' => 'update product']);
-        Permission::create(['name' => 'delete product']);
-
+        $this->createPermissions();
 
         // Create Roles
-        $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
+        $superAdminRole = Role::create(['name' => 'super-admin']);
         $adminRole = Role::create(['name' => 'admin']);
         $staffRole = Role::create(['name' => 'staff']);
         $userRole = Role::create(['name' => 'user']);
@@ -85,5 +65,38 @@ class UserRolePermissionSeeder extends Seeder
         ]);
 
         $staffUser->assignRole($staffRole);
+    }
+
+    private function createPermissions(): void
+    {
+        $permissions = [
+            // Permission
+            'view permission', 'create permission', 'update permission', 'delete permission',
+
+            // Role
+            'view role', 'create role', 'update role', 'delete role', 'add-edit permission',
+
+            // User
+            'view user', 'create user', 'update user', 'delete user',
+
+            // Building
+            'view building', 'create building', 'update building', 'delete building', 'update status building',
+
+            // Floor
+            'view floor', 'create floor', 'update floor', 'delete floor',
+
+            // Flat
+            'view flat', 'create flat', 'update flat', 'delete flat', 'update status flat',
+
+            // Utility
+            'view utility', 'create utility', 'update utility', 'delete utility', 'update status utility',
+
+            // Report
+            'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
+        ];
+
+        foreach ($permissions as $permissionName) {
+            Permission::firstOrCreate(['name' => $permissionName]);
+        }
     }
 }

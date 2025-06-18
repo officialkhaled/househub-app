@@ -129,70 +129,95 @@
                     </a>
                 </li>
 
+                @canany([
+                            'view building', 'create building', 'update building', 'delete building',
+                            'view floor', 'create floor', 'update floor', 'delete floor',
+                            'view flat', 'create flat', 'update flat', 'delete flat',
+                            'view utility', 'create utility', 'update utility', 'delete utility',
+                        ])
+                    <li class="nav-main-heading">Building Management</li>
+                @endcanany
 
-                <li class="nav-main-heading">Building Management</li>
+                @canany(['view building', 'create building', 'update building', 'delete building'])
+                    <li class="nav-main-item {{ request()->routeIs('buildings*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('buildings*') ? 'active' : '' }}" href="{{ route('buildings.index') }}">
+                            <i class="nav-main-link-icon fa fa-building"></i>
+                            <span class="nav-main-link-name">Buildings</span>
+                        </a>
+                    </li>
+                @endcanany
+                @canany(['view floor', 'create floor', 'update floor', 'delete floor'])
+                    <li class="nav-main-item {{ request()->routeIs('floors*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('floors*') ? 'active' : '' }}" href="{{ route('floors.index') }}">
+                            <i class="nav-main-link-icon fa fa-layer-group"></i>
+                            <span class="nav-main-link-name">Floors</span>
+                        </a>
+                    </li>
+                @endcanany
+                @canany(['view flat', 'create flat', 'update flat', 'delete flat'])
+                    <li class="nav-main-item {{ request()->routeIs('flats*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('flats*') ? 'active' : '' }}" href="{{ route('flats.index') }}">
+                            <i class="nav-main-link-icon fa fa-door-closed"></i>
+                            <span class="nav-main-link-name">Flats</span>
+                        </a>
+                    </li>
+                @endcanany
+                @canany(['view utility', 'create utility', 'update utility', 'delete utility'])
+                    <li class="nav-main-item {{ request()->routeIs('utilities*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('utilities*') ? 'active' : '' }}" href="{{ route('utilities.index') }}">
+                            <i class="nav-main-link-icon fa fa-money-bills"></i>
+                            <span class="nav-main-link-name">Utilities</span>
+                        </a>
+                    </li>
+                @endcanany
 
-                <li class="nav-main-item {{ request()->routeIs('buildings*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('buildings*') ? 'active' : '' }}" href="{{ route('buildings.index') }}">
-                        <i class="nav-main-link-icon fa fa-building"></i>
-                        <span class="nav-main-link-name">Buildings</span>
-                    </a>
-                </li>
+                @canany([
+                            'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
+                        ])
+                    <li class="nav-main-heading">Reports</li>
+                @endcanany
 
-                <li class="nav-main-item {{ request()->routeIs('floors*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('floors*') ? 'active' : '' }}" href="{{ route('floors.index') }}">
-                        <i class="nav-main-link-icon fa fa-layer-group"></i>
-                        <span class="nav-main-link-name">Floors</span>
-                    </a>
-                </li>
+                @canany(['view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report'])
+                    <li class="nav-main-item {{ request()->routeIs('month-wise-reports*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('month-wise-reports*') ? 'active' : '' }}" href="#">
+                            <i class="nav-main-link-icon fa fa-calendar-week"></i>
+                            <span class="nav-main-link-name">Month Wise Report</span>
+                        </a>
+                    </li>
+                @endcanany
 
-                <li class="nav-main-item {{ request()->routeIs('flats*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('flats*') ? 'active' : '' }}" href="{{ route('flats.index') }}">
-                        <i class="nav-main-link-icon fa fa-door-closed"></i>
-                        <span class="nav-main-link-name">Flats</span>
-                    </a>
-                </li>
+                @canany([
+                            'view permission', 'create permission', 'update permission', 'delete permission',
+                            'view role', 'create role', 'update role', 'delete role',
+                            'view user', 'create user', 'update user', 'delete user',
+                        ])
+                    <li class="nav-main-heading">Settings</li>
+                @endcanany
 
-                <li class="nav-main-item {{ request()->routeIs('utilities*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('utilities*') ? 'active' : '' }}" href="{{ route('utilities.index') }}">
-                        <i class="nav-main-link-icon fa fa-money-bills"></i>
-                        <span class="nav-main-link-name">Utilities</span>
-                    </a>
-                </li>
-
-
-                <li class="nav-main-heading">Reports</li>
-
-                <li class="nav-main-item {{ request()->routeIs('month-wise-reports*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('month-wise-reports*') ? 'active' : '' }}" href="#">
-                        <i class="nav-main-link-icon fa fa-calendar-week"></i>
-                        <span class="nav-main-link-name">Month Wise Report</span>
-                    </a>
-                </li>
-
-
-                <li class="nav-main-heading">Settings</li>
-
-                <li class="nav-main-item {{ request()->routeIs('permissions*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('permissions*') ? 'active' : '' }}" href="{{ route('permissions.index') }}">
-                        <i class="nav-main-link-icon fa fa-key"></i>
-                        <span class="nav-main-link-name">Permissions</span>
-                    </a>
-                </li>
-
-                <li class="nav-main-item {{ request()->routeIs('roles*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
-                        <i class="nav-main-link-icon fa fa-user-lock"></i>
-                        <span class="nav-main-link-name">Roles</span>
-                    </a>
-                </li>
-
-                <li class="nav-main-item {{ request()->routeIs('users*') ? 'open' : '' }}">
-                    <a class="nav-main-link {{ request()->routeIs('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                        <i class="nav-main-link-icon fa fa-users"></i>
-                        <span class="nav-main-link-name">Users</span>
-                    </a>
-                </li>
+                @canany(['view permission', 'create permission', 'update permission', 'delete permission'])
+                    <li class="nav-main-item {{ request()->routeIs('permissions*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('permissions*') ? 'active' : '' }}" href="{{ route('permissions.index') }}">
+                            <i class="nav-main-link-icon fa fa-key"></i>
+                            <span class="nav-main-link-name">Permissions</span>
+                        </a>
+                    </li>
+                @endcanany
+                @canany(['view role', 'create role', 'update role', 'delete role'])
+                    <li class="nav-main-item {{ request()->routeIs('roles*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
+                            <i class="nav-main-link-icon fa fa-user-lock"></i>
+                            <span class="nav-main-link-name">Roles</span>
+                        </a>
+                    </li>
+                @endcanany
+                @canany(['view user', 'create user', 'update user', 'delete user'])
+                    <li class="nav-main-item {{ request()->routeIs('users*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                            <i class="nav-main-link-icon fa fa-users"></i>
+                            <span class="nav-main-link-name">Users</span>
+                        </a>
+                    </li>
+                @endcanany
             </ul>
         </div>
     </div>
