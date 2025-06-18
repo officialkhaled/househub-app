@@ -13,12 +13,15 @@
     <div class="bg-header-dark">
         <div class="content-header bg-white-5">
             <a class="fw-semibold text-white tracking-wide" href="#">
-              <span class="smini-visible">
-                H<span class="opacity-75">H</span>
-              </span>
+                <span class="smini-visible">H<span class="opacity-75">H</span></span>
                 <span class="smini-hidden">
-                House<span class="opacity-75">Hub</span>
-              </span>
+                    <span class="d-flex justify-content-between align-items-center gap-1">
+                        <img src="{{ asset('assets/media/Logo.png') }}" alt="Logo Image" style="width: 20px; height: 20px; object-fit: cover;">
+                        <div>
+                            House<span class="opacity-75">Hub</span>
+                        </div>
+                    </span>
+                </span>
             </a>
 
             <div class="d-flex align-items-center gap-1">

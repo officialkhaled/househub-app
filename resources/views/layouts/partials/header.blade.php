@@ -23,10 +23,15 @@
             <!-- User Dropdown -->
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-user d-sm-none"></i>
-                    <img src="" alt="">
-                    <span class="d-none d-sm-inline-block">{{ auth()->user()->name }}</span>
-                    <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
+                    {{--                    <i class="fa fa-fw fa-user d-sm-none"></i>--}}
+                    <div class="d-flex justify-content-between align-items-center gap-1">
+                        <div class="d-flex justify-content-between align-items-center gap-1">
+                            <img src="{{ auth()->user()->avatar ? storageAsset(auth()->user()->avatar) : asset('assets/media/avatars/avatar0.jpg') }}"
+                                 alt="Logo Image" style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%; border: 1px solid #d9d9d9">
+                            <span class="d-none d-sm-inline-block">{{ auth()->user()->name }}</span>
+                        </div>
+                        <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
+                    </div>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                     <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
