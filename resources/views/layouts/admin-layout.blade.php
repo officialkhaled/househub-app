@@ -11,15 +11,15 @@
     -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>@yield('title', 'Dashmix')</title>
+    <title>@yield('title', ' | HouseHub')</title>
 
-    <meta name="description" content="Dashmix">
-    <meta name="author" content="pixelcave">
+    <meta name="description" content="HouseHub">
+    <meta name="author" content="khaled">
     <meta name="robots" content="index, follow">
 
-    <meta property="og:title" content="Dashmix">
-    <meta property="og:site_name" content="Dashmix">
-    <meta property="og:description" content="Dashmix">
+    <meta property="og:title" content="HouseHub">
+    <meta property="og:site_name" content="HouseHub">
+    <meta property="og:description" content="HouseHub">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
@@ -50,6 +50,7 @@
 </head>
 
 <body>
+
 <!--
   Available classes for #page-container:
 

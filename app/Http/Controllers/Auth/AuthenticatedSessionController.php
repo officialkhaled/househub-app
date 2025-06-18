@@ -29,6 +29,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        notyf()->addSuccess("Welcome Back, {$request->user()->name}!");
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

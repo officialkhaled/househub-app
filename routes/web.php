@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Route::get('/maintenance-mode', function () {
+//    return view('pages.maintenance');
+//});
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
