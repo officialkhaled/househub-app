@@ -34,6 +34,7 @@
                         <tr>
                             <th class="text-center" style="width: 10%;">ID</th>
                             <th>Name</th>
+                            <th>House Number</th>
                             {{--                            <th>Status</th>--}}
                             <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
                         </tr>
@@ -43,6 +44,7 @@
                             <tr>
                                 <td class="text-center">{{ $loop->index + 1 }}</td>
                                 <td class="fw-semibold">{{ $building->name }}</td>
+                                <td class="fw-semibold">{{ $building->house_number }}</td>
                                 {{--                                <td class="fw-semibold">{{ $building->status }}</td>--}}
                                 <td class="d-none d-sm-table-cell">
                                     <div class="d-flex justify-content-center gap-2">

@@ -1,5 +1,5 @@
 @extends('layouts.admin-layout')
-@section('title', 'Edit Building')
+@section('title', 'Edit Floor')
 @section('content')
 
     <div class="bg-body-light">
@@ -8,8 +8,8 @@
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item">Buildings</li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Building</li>
+                        <li class="breadcrumb-item">Floors</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Floor</li>
                     </ol>
                 </nav>
             </div>
@@ -19,56 +19,34 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title fw-bold">Edit Building</h3>
-                <a href="{{ route('buildings.index') }}" class="btn btn-primary">
+                <h3 class="block-title fw-bold">Edit Floor</h3>
+                <a href="{{ route('floors.index') }}" class="btn btn-primary">
                     <i class="fa-solid fa-arrow-left me-1"></i>
                     Back
                 </a>
             </div>
 
             <div class="block-content block-content-full overflow-x-auto">
-                <form action="{{ route('buildings.update', $building->id) }}" method="POST">
+                <form action="{{ route('floors.update', $floor->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <div class="row">
-                        <div class="col-4 mb-4">
-                            <div class="input-group">
-                                <span class="input-group-text input-group-text-alt">
-                                   Building Name
-                                </span>
-                                <input type="text" class="form-control form-control-alt" id="name"
-                                       name="name" value="{{ old('name', $building->name) }}" required>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-4">
-                            <div class="input-group">
-                                <span class="input-group-text input-group-text-alt">
-                                   House Number
-                                </span>
-                                <input type="text" class="form-control form-control-alt" id="house_number"
-                                       name="house_number" value="{{ old('house_number', $building->house_number) }}" required>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-4">
-                            <div class="input-group">
-                                <span class="input-group-text input-group-text-alt">
-                                   Total Floors (optional)
-                                </span>
-                                <input type="text" class="form-control form-control-alt" id="total_floors"
-                                       name="total_floors" value="{{ old('total_floors', $building->total_floors) }}">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6 mb-4">
-                            <label class="mb-1">Address</label>
-                            <textarea class="js-simplemde" id="address" name="address" placeholder="Type here...">{{ old('address', $building->address) }}</textarea>
+                            <label class="mb-1">Building</label>
+                            <select class="js-select2 form-select" id="building_id"
+                                    name="building_id" style="width: 100%;" data-placeholder="Select a Building..">
+                                @foreach ($buildings as $building)
+                                    <option value="{{ $building->id }}" {{ $floor->building_id === $building->id ? 'selected' : '' }}>
+                                        {{ $building->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-6 mb-4">
-                            <label class="mb-1">Description (optional)</label>
-                            <textarea class="js-simplemde" id="description" name="description" placeholder="Type here...">{{ old('description', $building->description) }}</textarea>
+                            <label class="mb-1">Floor Number</label>
+                            <input type="text" class="form-control form-control-alt" id="floor_number"
+                                   name="floor_number" value="{{ old('floor_number', $floor->floor_number) }}" placeholder="Floor Number" required>
                         </div>
                     </div>
 
@@ -81,7 +59,7 @@
                                 </button>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa-solid fa-save me-1"></i>
-                                    Submit
+                                    Update
                                 </button>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CommonApiController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\PermissionController;
@@ -18,6 +19,10 @@ Route::get('/', function () {
 //Route::get('/maintenance-mode', function () {
 //    return view('pages.maintenance');
 //});
+
+Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
+    Route::get('/get-floors', [CommonApiController::class, 'getFloors'])->name('get-floors');
+});
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

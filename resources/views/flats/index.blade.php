@@ -33,6 +33,7 @@
                         <thead>
                         <tr>
                             <th class="text-center" style="width: 10%;">ID</th>
+                            <th>Building</th>
                             <th>Floor</th>
                             <th>Name</th>
                             <th>Number of Rooms</th>
@@ -46,7 +47,8 @@
                         @foreach($flats as $flat)
                             <tr>
                                 <td class="text-center">{{ $loop->index + 1 }}</td>
-                                <td class="fw-semibold">{{ $flat->floor?->name }}</td>
+                                <td class="fw-semibold">{{ $flat->building?->name }}</td>
+                                <td class="fw-semibold">{{ $flat->floor?->floor_number }}</td>
                                 <td class="fw-semibold">{{ $flat->name }}</td>
                                 <td class="fw-semibold">{{ $flat->number_of_rooms }}</td>
                                 <td class="fw-semibold">{{ $flat->sqft_size }}</td>

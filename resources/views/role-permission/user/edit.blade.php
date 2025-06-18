@@ -72,7 +72,7 @@
                                 </button>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa-solid fa-save me-1"></i>
-                                    Submit
+                                    Update
                                 </button>
                             </div>
                         </div>

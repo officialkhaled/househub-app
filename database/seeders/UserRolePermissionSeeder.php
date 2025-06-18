@@ -31,14 +31,13 @@ class UserRolePermissionSeeder extends Seeder
         $adminRole->givePermissionTo(['create role', 'view role', 'update role']);
         $adminRole->givePermissionTo(['create permission', 'view permission']);
         $adminRole->givePermissionTo(['create user', 'view user', 'update user']);
-        $adminRole->givePermissionTo(['create product', 'view product', 'update product']);
 
 
         $superAdminUser = User::firstOrCreate([
-            'email' => 'superadmin@gmail.com',
+            'email' => 'admin@gmail.com',
         ], [
             'name' => 'Super Admin',
-            'email' => 'superadmin@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('123456'),
         ]);
 
@@ -46,10 +45,10 @@ class UserRolePermissionSeeder extends Seeder
 
 
         $adminUser = User::firstOrCreate([
-            'email' => 'admin@gmail.com'
+            'email' => 'admin@mail.com'
         ], [
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@mail.com',
             'password' => Hash::make('123456'),
         ]);
 
