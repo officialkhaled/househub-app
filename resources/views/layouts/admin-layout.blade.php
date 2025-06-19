@@ -31,19 +31,15 @@
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/dropzone/min/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/simplemde/simplemde.min.css') }}">
 
     <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/dashmix.min.css') }}">
 
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
     <script src="{{ asset('assets/js/setTheme.js') }}"></script>
 
     @yield('styles')
@@ -128,12 +124,9 @@
 <script src="{{ asset('assets/js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
-
 <script src="{{ asset('assets/js/plugins/chart.js/chart.umd.js') }}"></script>
-
 <script src="{{ asset('assets/js/pages/be_pages_ecom_dashboard.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/be_tables_datatables.min.js') }}"></script>
-
 <script src="{{ asset('assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/select2/js/select2.full.min.js') }}"></script>
@@ -142,20 +135,26 @@
 <script src="{{ asset('assets/js/plugins/dropzone/min/dropzone.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
-
 <script src="{{ asset('assets/js/plugins/simplemde/simplemde.min.js') }}"></script>
 
 <script>
-    Dashmix.helpersOnLoad([
-        'js-flatpickr',
-        'jq-datepicker',
-        'jq-maxlength',
-        'jq-select2',
-        'jq-rangeslider',
-        'jq-masked-inputs',
-        'jq-pw-strength',
-        'js-simplemde',
-    ]);
+    document.addEventListener("DOMContentLoaded", function () {
+        const helpersToLoad = [
+            'js-flatpickr',
+            'jq-datepicker',
+            'jq-maxlength',
+            'jq-select2',
+            'jq-rangeslider',
+            'jq-masked-inputs',
+            'jq-pw-strength',
+        ];
+
+        if (document.querySelector('.js-simplemde')) {
+            helpersToLoad.push('js-simplemde');
+        }
+
+        Dashmix.helpersOnLoad(helpersToLoad);
+    });
 
     function previewAvatar(event) {
         const input = event.target;

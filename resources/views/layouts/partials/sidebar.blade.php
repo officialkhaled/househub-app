@@ -63,47 +63,47 @@
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xwork rounded-1" data-toggle="theme" data-theme="assets/css/themes/xwork.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xwork rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xwork.min.css') }}" href="#">
                                     xWork
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xmodern rounded-1" data-toggle="theme" data-theme="assets/css/themes/xmodern.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xmodern rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xmodern.min.css') }}" href="#">
                                     xModern
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xeco rounded-1" data-toggle="theme" data-theme="assets/css/themes/xeco.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xeco rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xeco.min.css') }}" href="#">
                                     xEco
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xsmooth rounded-1" data-toggle="theme" data-theme="assets/css/themes/xsmooth.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xsmooth rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xsmooth.min.css') }}" href="#">
                                     xSmooth
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xinspire rounded-1" data-toggle="theme" data-theme="assets/css/themes/xinspire.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xinspire rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xinspire.min.css') }}" href="#">
                                     xInspire
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xdream rounded-1" data-toggle="theme" data-theme="assets/css/themes/xdream.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xdream rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xdream.min.css') }}" href="#">
                                     xDream
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xpro rounded-1" data-toggle="theme" data-theme="assets/css/themes/xpro.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xpro rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xpro.min.css') }}" href="#">
                                     xPro
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xplay rounded-1" data-toggle="theme" data-theme="assets/css/themes/xplay.min.css" href="#">
+                                <a class="d-block py-3 text-white fs-xs fw-semibold bg-xplay rounded-1" data-toggle="theme" data-theme="{{ asset('assets/css/themes/xplay.min.css') }}" href="#">
                                     xPlay
                                 </a>
                             </div>
                             <div class="col-12">
-                                <a class="d-block py-2 bg-body-dark fs-xs fw-semibold text-dark rounded-1" href="be_ui_color_themes.html">All Color Themes</a>
+                                <a class="d-block py-2 bg-body-dark fs-xs fw-semibold text-dark rounded-1" href="#">All Color Themes</a>
                             </div>
                         </div>
                         <!-- END Color Themes -->
