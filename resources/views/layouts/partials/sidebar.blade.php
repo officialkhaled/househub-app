@@ -102,9 +102,6 @@
                                     xPlay
                                 </a>
                             </div>
-                            <div class="col-12">
-                                <a class="d-block py-2 bg-body-dark fs-xs fw-semibold text-dark rounded-1" href="#">All Color Themes</a>
-                            </div>
                         </div>
                         <!-- END Color Themes -->
                     </div>
@@ -194,7 +191,7 @@
                             'view role', 'create role', 'update role', 'delete role',
                             'view user', 'create user', 'update user', 'delete user',
                         ])
-                    <li class="nav-main-heading">Settings</li>
+                    <li class="nav-main-heading">Role-Permissions</li>
                 @endcanany
 
                 @canany(['view permission', 'create permission', 'update permission', 'delete permission'])

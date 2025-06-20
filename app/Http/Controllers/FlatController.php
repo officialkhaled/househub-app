@@ -39,12 +39,14 @@ class FlatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'building_id' => 'required',
             'floor_id' => 'required',
             'name' => 'required',
             'number_of_rooms' => 'required',
             'sqft_size' => 'required',
             'rent_fee' => 'required',
         ], [
+            'building_id.required' => 'Building is Required',
             'floor_id.required' => 'Floor is Required',
             'name.required' => 'Name is Required',
             'number_of_rooms.required' => 'Number of Rooms is Required',
@@ -56,11 +58,13 @@ class FlatController extends Controller
             DB::beginTransaction();
 
             Flat::create([
+                'building_id' => $request->building_id,
                 'floor_id' => $request->floor_id,
                 'name' => $request->name,
                 'number_of_rooms' => $request->number_of_rooms,
                 'sqft_size' => $request->sqft_size,
                 'rent_fee' => $request->rent_fee,
+                'description' => $request->description,
             ]);
 
             notyf()->addSuccess('Flat Created Successfully.');
@@ -90,13 +94,11 @@ class FlatController extends Controller
     public function update(Request $request, Flat $flat)
     {
         $request->validate([
-            'floor_id' => 'required',
             'name' => 'required',
             'number_of_rooms' => 'required',
             'sqft_size' => 'required',
             'rent_fee' => 'required',
         ], [
-            'floor_id.required' => 'Floor is Required',
             'name.required' => 'Name is Required',
             'number_of_rooms.required' => 'Number of Rooms is Required',
             'sqft_size.required' => 'SQFT Size is Required',
@@ -111,6 +113,7 @@ class FlatController extends Controller
                 'number_of_rooms' => $request->number_of_rooms,
                 'sqft_size' => $request->sqft_size,
                 'rent_fee' => $request->rent_fee,
+                'description' => $request->description,
             ]);
 
             notyf()->addSuccess('Flat Updated Successfully.');

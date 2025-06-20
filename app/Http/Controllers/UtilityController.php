@@ -28,7 +28,7 @@ class UtilityController extends Controller
 
     public function create()
     {
-        $flats = Flat::where('status', '=', 'active')->latest()->get();
+        $flats = Flat::latest()->get();
 
         return view('utilities.create', [
             'flats' => $flats,
@@ -70,7 +70,7 @@ class UtilityController extends Controller
 
     public function edit(Utility $utility)
     {
-        $flats = Flat::where('status', '=', 'active')->latest()->get();
+        $flats = Flat::latest()->get();
 
         return view('utilities.edit', [
             'utility' => $utility,

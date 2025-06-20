@@ -36,6 +36,7 @@
                             <label class="mb-1">Flat</label>
                             <select class="js-select2 form-select" id="flat_id"
                                     name="flat_id" style="width: 100%;" data-placeholder="Select a Flat..">
+                                <option value="" disabled selected>Select a Flat..</option>
                                 @foreach ($flats as $flat)
                                     <option value="{{ $flat->id }}" {{ $utility->flat_id ? ($utility->flat_id == $flat->id ? 'selected' : '') : '' }}>
                                         {{ $flat->name }}
