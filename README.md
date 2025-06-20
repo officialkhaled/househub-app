@@ -18,9 +18,9 @@ This version is designed specifically for **landlords** to manage multiple build
 - 📆 Monthly Rent Report auto-generated for each renter
 - 💳 Record Payments per renter/month
 - 📊 Track Due & Advance Balances across months
-- 🧾 Generate Monthly Invoices per renter with full breakdown
+- 🧾 Generate Monthly Invoices per renter with a full breakdown
 - 📚 Role-based access (Spatie Laravel Permission)
-- ✨ Clean, modular and extendable code
+- ✨ Clean, modular, and extendable code
 
 ---
 
@@ -58,7 +58,7 @@ cd house-rent-management
 
 # Install dependencies
 composer install
-npm install && npm run dev
+npm install
 
 # Setup environment
 cp .env.example .env
@@ -66,16 +66,9 @@ php artisan key:generate
 
 # Configure your DB credentials in `.env`
 php artisan migrate
-php artisan db:seed # optional: add seeders
-
-# Create a landlord user
-php artisan tinker
->>> \App\Models\User::create(['name' => 'Landlord', 'email' => 'landlord@example.com', 'password' => bcrypt('password')]);
-
-# Assign "landlord" role (Spatie)
->>> $user = \App\Models\User::first();
->>> $user->assignRole('landlord');
+php artisan db:seed 
 
 # Start the server
 php artisan serve
+npm run dev
 ```
