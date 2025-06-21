@@ -170,6 +170,29 @@
                         </a>
                     </li>
                 @endcanany
+                @canany(['view renter', 'create renter', 'update renter', 'delete renter'])
+                    <li class="nav-main-item {{ request()->routeIs('renters*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('renters*') ? 'active' : '' }}" href="{{ route('renters.index') }}">
+                            <i class="nav-main-link-icon fa fa-person-walking-luggage"></i>
+                            <span class="nav-main-link-name">Renters</span>
+                        </a>
+                    </li>
+                @endcanany
+
+                @canany([
+                            'view renter-flat-assign', 'create renter-flat-assign', 'update renter-flat-assign', 'delete renter-flat-assign',
+                        ])
+                    <li class="nav-main-heading">Configurations</li>
+                @endcanany
+
+                @canany(['view renter-flat-assign', 'create renter-flat-assign', 'update renter-flat-assign', 'delete renter-flat-assign'])
+                    <li class="nav-main-item {{ request()->routeIs('renter-flat-assign*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('renter-flat-assign*') ? 'active' : '' }}" href="{{ route('renter-flat-assign.index') }}">
+                            <i class="nav-main-link-icon fa fa-check-to-slot"></i>
+                            <span class="nav-main-link-name">Assign Renter-Flat</span>
+                        </a>
+                    </li>
+                @endcanany
 
                 @canany([
                             'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
@@ -181,7 +204,7 @@
                 @canany(['view invoice', 'generate invoice', 'delete invoice'])
                     <li class="nav-main-item {{ request()->routeIs('invoices*') ? 'open' : '' }}">
                         <a class="nav-main-link {{ request()->routeIs('invoices*') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
-                            <i class="nav-main-link-icon fa fa-calendar-week"></i>
+                            <i class="nav-main-link-icon fa fa-receipt"></i>
                             <span class="nav-main-link-name">Invoices</span>
                         </a>
                     </li>
@@ -200,7 +223,7 @@
                             'view role', 'create role', 'update role', 'delete role',
                             'view user', 'create user', 'update user', 'delete user',
                         ])
-                    <li class="nav-main-heading">Role-Permissions</li>
+                    <li class="nav-main-heading">Administration</li>
                 @endcanany
 
                 @canany(['view permission', 'create permission', 'update permission', 'delete permission'])

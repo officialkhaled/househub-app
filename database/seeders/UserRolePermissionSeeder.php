@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use DB;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserRolePermissionSeeder extends Seeder
 {
@@ -16,12 +16,12 @@ class UserRolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::table('roles')->delete();
-        \DB::table('permissions')->delete();
-        \DB::table('model_has_roles')->delete();
-        \DB::table('model_has_permissions')->delete();
-        \DB::table('role_has_permissions')->delete();
-        \DB::table('users')->delete();
+        DB::table('roles')->delete();
+        DB::table('permissions')->delete();
+        DB::table('model_has_roles')->delete();
+        DB::table('model_has_permissions')->delete();
+        DB::table('role_has_permissions')->delete();
+        DB::table('users')->delete();
 
 
         $this->createPermissions();
@@ -98,8 +98,16 @@ class UserRolePermissionSeeder extends Seeder
             // Utility
             'view utility', 'create utility', 'update utility', 'delete utility', 'update status utility',
 
-            // Report
+            // Renter
+            'view renter', 'create renter', 'update renter', 'delete renter',
+
+            // Renter-Flat-Assign
+            'view renter-flat-assign', 'create renter-flat-assign', 'update renter-flat-assign', 'delete renter-flat-assign',
+
+            // Invoice
             'view invoice', 'generate invoice', 'delete invoice',
+
+            // Report
             'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
         ];
 

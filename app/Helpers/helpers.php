@@ -29,8 +29,8 @@ if (!function_exists('uploadImage')) {
     }
 }
 
-if (!function_exists('deleteImageIfExists')) {
-    function deleteImageIfExists(?string $path): bool
+if (!function_exists('deleteFileIfExists')) {
+    function deleteFileIfExists(?string $path): bool
     {
         if ($path && Storage::disk('public')->exists($path)) {
             return Storage::disk('public')->delete($path);

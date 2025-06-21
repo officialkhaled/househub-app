@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        deleteImageIfExists($user->avatar);
+        deleteFileIfExists($user->avatar);
         $user->delete();
 
         $request->session()->invalidate();

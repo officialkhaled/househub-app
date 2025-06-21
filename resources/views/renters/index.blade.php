@@ -1,5 +1,5 @@
 @extends('layouts.admin-layout')
-@section('title', 'Roles')
+@section('title', 'Renters')
 @section('content')
 
     <div class="bg-body-light">
@@ -8,8 +8,8 @@
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item">Administration</li>
-                        <li class="breadcrumb-item active" aria-current="page">Roles</li>
+                        <li class="breadcrumb-item">Building Management</li>
+                        <li class="breadcrumb-item active" aria-current="page">Renters</li>
                     </ol>
                 </nav>
             </div>
@@ -19,9 +19,9 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title fw-bold">Roles</h3>
-                @can('create role')
-                    <a href="{{ route('roles.create') }}" class="btn btn-primary">
+                <h3 class="block-title fw-bold">Renters</h3>
+                @can('create renter')
+                    <a href="{{ route('renters.create') }}" class="btn btn-primary">
                         <i class="fa-solid fa-plus me-1"></i>
                         Add
                     </a>
@@ -35,29 +35,34 @@
                         <tr>
                             <th class="text-center" style="width: 10%;">ID</th>
                             <th>Name</th>
-                            <th class="d-none d-sm-table-cell" style="width: 35%;">Action</th>
+                            <th>Phone Number</th>
+                            <th>Status</th>
+                            <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($roles as $role)
+                        @foreach($renters as $renter)
                             <tr>
                                 <td class="text-center">{{ $loop->index + 1 }}</td>
-                                <td class="fw-semibold">{{ $role->name }}</td>
+                                <td class="fw-semibold">{{ $renter->name }}</td>
+                                <td class="fw-semibold">{{ $renter->phone }}</td>
+                                <td class="fw-semibold">
+                                    <div class="form-check form-switch form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="active"
+                                               id="status" name="status" checked>
+                                        <label class="form-check-label" for="status">{{ $renter->status == 'active' ? 'Active' : 'Inactive' }}</label>
+                                    </div>
+                                </td>
                                 <td class="d-none d-sm-table-cell">
                                     <div class="d-flex justify-content-center gap-2">
-                                        @can('create role')
-                                            <a href="{{ url('roles/'.$role->id.'/give-permissions') }}" class="btn btn-alt-warning">
-                                                <i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add/Edit Role Permission
-                                            </a>
-                                        @endcan
-                                        @can('update role')
-                                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-alt-success"
+                                        @can('update renter')
+                                            <a href="{{ route('renters.edit', $renter->id) }}" class="btn btn-alt-success"
                                                data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
                                                 <i class="fa-solid fa-edit"></i>
                                             </a>
                                         @endcan
-                                        @can('delete role')
-                                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                        @can('delete renter')
+                                            <form action="{{ route('renters.destroy', $renter->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

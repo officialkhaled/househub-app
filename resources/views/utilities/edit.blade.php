@@ -8,6 +8,7 @@
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Dashboard</li>
+                        <li class="breadcrumb-item">Building Management</li>
                         <li class="breadcrumb-item">Utilities</li>
                         <li class="breadcrumb-item active" aria-current="page">Edit Utility</li>
                     </ol>

@@ -13,13 +13,10 @@ return new class extends Migration {
         Schema::create('renters', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('flat_id');
             $table->string('name');
             $table->string('phone');
             $table->string('email')->nullable();
             $table->string('nid')->nullable();
-            $table->date('start_month');
-            $table->date('end_month')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active')->comment('Active, Inactive');
 
             $table->timestamps();

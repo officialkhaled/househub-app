@@ -1,5 +1,5 @@
 @extends('layouts.admin-layout')
-@section('title', 'Edit Building')
+@section('title', 'Add Renter')
 @section('content')
 
     <div class="bg-body-light">
@@ -9,8 +9,8 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item">Building Management</li>
-                        <li class="breadcrumb-item">Buildings</li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Building</li>
+                        <li class="breadcrumb-item">Renters</li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Renter</li>
                     </ol>
                 </nav>
             </div>
@@ -20,56 +20,50 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title fw-bold">Edit Building</h3>
-                <a href="{{ route('buildings.index') }}" class="btn btn-primary">
+                <h3 class="block-title fw-bold">Add Renter</h3>
+                <a href="{{ route('renters.index') }}" class="btn btn-primary">
                     <i class="fa-solid fa-arrow-left me-1"></i>
                     Back
                 </a>
             </div>
 
             <div class="block-content block-content-full overflow-x-auto">
-                <form action="{{ route('buildings.update', $building->id) }}" method="POST">
+                <form action="{{ route('renters.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
 
-                    <div class="row">
-                        <div class="col-4 mb-4">
+                    <div class="row mb-4">
+                        <div class="col-6">
                             <div class="input-group">
                                 <span class="input-group-text input-group-text-alt">
-                                   Building Name
+                                   Renter Name
                                 </span>
                                 <input type="text" class="form-control form-control-alt" id="name"
-                                       name="name" value="{{ old('name', $building->name) }}" required>
+                                       name="name" value="{{ old('name') }}" required>
                             </div>
                         </div>
-                        <div class="col-4 mb-4">
+                        <div class="col-6">
                             <div class="input-group">
                                 <span class="input-group-text input-group-text-alt">
-                                   House Number
+                                   Phone Number
                                 </span>
-                                <input type="text" class="form-control form-control-alt" id="house_number"
-                                       name="house_number" value="{{ old('house_number', $building->house_number) }}" required>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-4">
-                            <div class="input-group">
-                                <span class="input-group-text input-group-text-alt">
-                                   Total Floors (optional)
-                                </span>
-                                <input type="text" class="form-control form-control-alt" id="total_floors"
-                                       name="total_floors" value="{{ old('total_floors', $building->total_floors) }}">
+                                <input type="number" class="form-control form-control-alt" id="phone"
+                                       name="phone" value="{{ old('phone') }}" required>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-6 mb-4">
-                            <label class="mb-1">Address</label>
-                            <textarea class="js-simplemde" id="address" name="address" placeholder="Type here...">{{ old('address', $building->address) }}</textarea>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <span class="input-group-text input-group-text-alt">
+                                   Email
+                                </span>
+                                <input type="email" class="form-control form-control-alt" id="email"
+                                       name="email" value="{{ old('email') }}">
+                            </div>
                         </div>
-                        <div class="col-6 mb-4">
-                            <label class="mb-1">Description (optional)</label>
-                            <textarea class="js-simplemde" id="description" name="description" placeholder="Type here...">{{ old('description', $building->description) }}</textarea>
+                        <div class="col-6">
+                            <input type="file" class="form-control form-control-alt" id="nid" name="nid">
                         </div>
                     </div>
 
@@ -82,7 +76,7 @@
                                 </button>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa-solid fa-save me-1"></i>
-                                    Update
+                                    Submit
                                 </button>
                             </div>
                         </div>

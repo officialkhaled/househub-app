@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FlatController;
 use App\Http\Controllers\FloorController;
+use App\Http\Controllers\RenterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\InvoiceController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommonApiController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\RoleController;
+use App\Http\Controllers\RenterFlatAssignController;
 use App\Http\Controllers\Settings\PermissionController;
 
 Route::get('/', function () {
@@ -23,6 +25,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
     Route::get('/get-floors', [CommonApiController::class, 'getFloors'])->name('get-floors');
+    Route::get('/get-flats', [CommonApiController::class, 'getFlats'])->name('get-flats');
 });
 
 
@@ -66,6 +69,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('{utility}', [UtilityController::class, 'destroy'])->name('destroy');
     });
 
+    Route::group(['prefix' => 'renters', 'as' => 'renters.'], function () {
+        Route::get('', [RenterController::class, 'index'])->name('index');
+        Route::get('/create', [RenterController::class, 'create'])->name('create');
+        Route::post('', [RenterController::class, 'store'])->name('store');
+        Route::get('{renter}/edit', [RenterController::class, 'edit'])->name('edit');
+        Route::put('{renter}', [RenterController::class, 'update'])->name('update');
+        Route::delete('{renter}', [RenterController::class, 'destroy'])->name('destroy');
+    });
+
+
+    // Configurations
+    Route::group(['prefix' => 'renter-flat-assign', 'as' => 'renter-flat-assign.'], function () {
+        Route::get('', [RenterFlatAssignController::class, 'index'])->name('index');
+        Route::get('/create', [RenterFlatAssignController::class, 'create'])->name('create');
+        Route::post('', [RenterFlatAssignController::class, 'store'])->name('store');
+        Route::get('{renterFlatAssign}/edit', [RenterFlatAssignController::class, 'edit'])->name('edit');
+        Route::put('{renterFlatAssign}', [RenterFlatAssignController::class, 'update'])->name('update');
+        Route::delete('{renterFlatAssign}', [RenterFlatAssignController::class, 'destroy'])->name('destroy');
+    });
+
+
+    // Invoices
     Route::group(['prefix' => 'invoices', 'as' => 'invoices.'], function () {
         Route::get('', [InvoiceController::class, 'index'])->name('index');
         Route::post('generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
