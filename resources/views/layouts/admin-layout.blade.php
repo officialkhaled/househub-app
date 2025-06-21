@@ -127,6 +127,8 @@
 
 <script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="{{ asset('assets/js/plugins/datatables/dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -168,6 +170,29 @@
         }
 
         Dashmix.helpersOnLoad(helpersToLoad);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('form[data-confirm-delete]').forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This action cannot be undone!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, delete it!',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
     });
 
     function previewAvatar(event) {

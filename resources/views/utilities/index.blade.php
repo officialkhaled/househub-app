@@ -58,7 +58,7 @@
                                             </a>
                                         @endcan
                                         @can('delete utility')
-                                            <form action="{{ route('utilities.destroy', $utility->id) }}" method="POST">
+                                            <form action="{{ route('utilities.destroy', $utility->id) }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

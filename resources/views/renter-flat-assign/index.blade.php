@@ -78,7 +78,7 @@
                                             @endcan
                                         @endif
                                         @can('delete renter-flat-assign')
-                                            <form action="{{ route('renter-flat-assign.destroy', $renterFlatAssign->id) }}" method="POST">
+                                            <form action="{{ route('renter-flat-assign.destroy', $renterFlatAssign->id) }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

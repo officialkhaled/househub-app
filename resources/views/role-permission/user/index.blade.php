@@ -62,7 +62,7 @@
                                             </a>
                                         @endcan
                                         @can('delete user')
-                                            <form action="{{ url('users/'.$user->id.'/delete') }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ url('users/'.$user->id.'/delete') }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

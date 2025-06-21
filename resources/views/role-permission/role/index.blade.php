@@ -57,7 +57,7 @@
                                             </a>
                                         @endcan
                                         @can('delete role')
-                                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

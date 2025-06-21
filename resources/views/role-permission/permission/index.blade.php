@@ -52,7 +52,7 @@
                                             </a>
                                         @endcan
                                         @can('delete permission')
-                                            <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST">
+                                            <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

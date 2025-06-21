@@ -64,7 +64,7 @@
                                             </a>
                                         @endcan
                                         @can('delete flat')
-                                            <form action="{{ route('flats.destroy', $flat->id) }}" method="POST">
+                                            <form action="{{ route('flats.destroy', $flat->id) }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"

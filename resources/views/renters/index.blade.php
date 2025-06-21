@@ -62,7 +62,7 @@
                                             </a>
                                         @endcan
                                         @can('delete renter')
-                                            <form action="{{ route('renters.destroy', $renter->id) }}" method="POST">
+                                            <form action="{{ route('renters.destroy', $renter->id) }}" method="POST" data-confirm-delete>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-alt-danger"
