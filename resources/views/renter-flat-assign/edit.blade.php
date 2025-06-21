@@ -48,7 +48,7 @@
                     <div class="row mb-4">
                         <div class="col-6">
                             <label class="form-label">Start Month</label>
-                            <input type="text" class="form-control" value="{{ $renterFlatAssign->start_month }}"
+                            <input type="text" class="form-control" value="{{ $renterFlatAssign->start_month->format('d M, Y') }}"
                                    id="start_month" name="start_month" disabled>
                         </div>
                         <div class="col-6">

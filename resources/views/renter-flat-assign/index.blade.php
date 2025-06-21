@@ -48,8 +48,8 @@
                                 <td class="text-center">{{ $loop->index + 1 }}</td>
                                 <td class="fw-semibold">{{ $renterFlatAssign->renter?->name }}</td>
                                 <td class="fw-semibold">{{ $renterFlatAssign->flat?->name }}</td>
-                                <td class="fw-semibold">{{ $renterFlatAssign->start_month }}</td>
-                                <td class="fw-semibold">{{ $renterFlatAssign->end_month ?? '' }}</td>
+                                <td class="fw-semibold">{{ $renterFlatAssign->start_month->format('d M, Y') }}</td>
+                                <td class="fw-semibold">{{ $renterFlatAssign->end_month ? $renterFlatAssign->end_month->format('d M, Y') : '' }}</td>
                                 <td class="fw-semibold">
                                     <div class="form-check form-switch form-check-inline">
                                         <input class="form-check-input" type="checkbox" value="active"

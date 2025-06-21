@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\Flat;
-use App\Models\Floor;
 use App\Models\Renter;
-use App\Models\Building;
 use Illuminate\Http\Request;
 use App\Models\RenterFlatAssign;
 
@@ -23,7 +21,13 @@ class RenterFlatAssignController extends Controller
 
     public function create()
     {
-        $renters = Renter::latest()->get();
+        $renters = Renter::query()
+            ->whereDoesntHave('renterFlatAssign', function ($query) {
+                $query->whereNull('end_month');
+            })
+            ->latest()
+            ->get();
+
         $flats = Flat::with(['building', 'floor'])->latest()->get();
 
         return view('renter-flat-assign.create', [
@@ -69,12 +73,7 @@ class RenterFlatAssignController extends Controller
 
     public function edit(RenterFlatAssign $renterFlatAssign)
     {
-        $renters = Renter::latest()->get();
-        $flats = Flat::with(['building', 'floor'])->latest()->get();
-
         return view('renter-flat-assign.edit', [
-            'renters' => $renters,
-            'flats' => $flats,
             'renterFlatAssign' => $renterFlatAssign,
         ]);
     }

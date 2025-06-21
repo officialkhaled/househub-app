@@ -16,6 +16,11 @@ class RenterFlatAssign extends Model
         'end_month',
     ];
 
+    protected $casts = [
+        'start_month' => 'date',
+        'end_month' => 'date',
+    ];
+
     public function renter(): BelongsTo
     {
         return $this->belongsTo(Renter::class, 'renter_id')->withDefault();
