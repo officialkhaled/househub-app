@@ -16,6 +16,14 @@ class UserRolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        \DB::table('roles')->delete();
+        \DB::table('permissions')->delete();
+        \DB::table('model_has_roles')->delete();
+        \DB::table('model_has_permissions')->delete();
+        \DB::table('role_has_permissions')->delete();
+        \DB::table('users')->delete();
+
+
         $this->createPermissions();
 
         // Create Roles
@@ -91,6 +99,7 @@ class UserRolePermissionSeeder extends Seeder
             'view utility', 'create utility', 'update utility', 'delete utility', 'update status utility',
 
             // Report
+            'view invoice', 'generate invoice', 'delete invoice',
             'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
         ];
 

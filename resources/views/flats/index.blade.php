@@ -38,7 +38,7 @@
                             <th>Name</th>
                             <th>Number of Rooms</th>
                             <th>SQFT Size</th>
-                            <th>Rent Fee</th>
+                            <th>Rent Fee (BDT)</th>
                             {{--                            <th>Status</th>--}}
                             <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
                         </tr>

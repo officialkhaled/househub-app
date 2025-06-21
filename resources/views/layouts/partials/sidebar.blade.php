@@ -173,15 +173,24 @@
 
                 @canany([
                             'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
+                            'view invoice', 'generate invoice', 'delete invoice',
                         ])
                     <li class="nav-main-heading">Reports</li>
                 @endcanany
 
-                @canany(['view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report'])
-                    <li class="nav-main-item {{ request()->routeIs('month-wise-reports*') ? 'open' : '' }}">
-                        <a class="nav-main-link {{ request()->routeIs('month-wise-reports*') ? 'active' : '' }}" href="#">
+                @canany(['view invoice', 'generate invoice', 'delete invoice'])
+                    <li class="nav-main-item {{ request()->routeIs('invoices*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('invoices*') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
                             <i class="nav-main-link-icon fa fa-calendar-week"></i>
-                            <span class="nav-main-link-name">Month Wise Report</span>
+                            <span class="nav-main-link-name">Invoices</span>
+                        </a>
+                    </li>
+                @endcanany
+                @canany(['view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report'])
+                    <li class="nav-main-item {{ request()->routeIs('month-wise-report*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('month-wise-report*') ? 'active' : '' }}" href="#">
+                            <i class="nav-main-link-icon fa fa-calendar-week"></i>
+                            <span class="nav-main-link-name">Monthly Reports</span>
                         </a>
                     </li>
                 @endcanany

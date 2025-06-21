@@ -35,7 +35,7 @@
                             <th class="text-center" style="width: 10%;">ID</th>
                             <th>Flat</th>
                             <th>Name</th>
-                            <th>Amount</th>
+                            <th>Amount (BDT)</th>
                             {{--                            <th>Status</th>--}}
                             <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
                         </tr>

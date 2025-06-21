@@ -5,6 +5,7 @@ use App\Http\Controllers\FlatController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UtilityController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommonApiController;
@@ -63,6 +64,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('{utility}/edit', [UtilityController::class, 'edit'])->name('edit');
         Route::put('{utility}', [UtilityController::class, 'update'])->name('update');
         Route::delete('{utility}', [UtilityController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'invoices', 'as' => 'invoices.'], function () {
+        Route::get('', [InvoiceController::class, 'index'])->name('index');
+        Route::post('generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
+        Route::delete('{invoice}', [InvoiceController::class, 'destroy'])->name('destroy');
     });
 
 
