@@ -48,7 +48,7 @@
                                    name="name" value="{{ old('name') }}" placeholder="Name" required>
                         </div>
                         <div class="col-4 mb-4">
-                            <label class="mb-1">Amount</label>
+                            <label class="mb-1">Amount (BDT)</label>
                             <input type="text" class="form-control form-control-alt" id="amount"
                                    name="amount" value="{{ old('amount') }}" placeholder="Amount" required>
                         </div>

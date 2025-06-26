@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Carbon\Carbon;
 use App\Models\Flat;
 use App\Models\Renter;
 use Illuminate\Http\Request;
@@ -57,6 +58,10 @@ class RenterFlatAssignController extends Controller
                 'start_month' => $request->start_month,
             ]);
 
+            Flat::find($request->flat_id)->update([
+                'status' => 'rented',
+            ]);
+
             notyf()->addSuccess('Renter-Flat Assigned Successfully.');
 
             DB::commit();
@@ -81,7 +86,7 @@ class RenterFlatAssignController extends Controller
     public function update(Request $request, RenterFlatAssign $renterFlatAssign)
     {
         $request->validate([
-            'end_month' => 'required',
+            'end_month' => 'required|date',
         ], [
             'end_month.required' => 'End Month is Required',
         ]);
@@ -89,9 +94,19 @@ class RenterFlatAssignController extends Controller
         try {
             DB::beginTransaction();
 
+            $endMonth = Carbon::parse($request->end_month);
+            $currentMonth = now()->startOfMonth();
+
+            $flatStatus = $endMonth->isSameMonth($currentMonth)
+                ? 'available'
+                : 'leaving_soon';
+
             $renterFlatAssign->update([
                 'end_month' => $request->end_month,
-                'status' => 'available',
+            ]);
+
+            Flat::find($renterFlatAssign->flat_id)?->update([
+                'status' => $flatStatus,
             ]);
 
             notyf()->addSuccess('Renter-Flat Updated Successfully.');
