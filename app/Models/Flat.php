@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +19,13 @@ class Flat extends Model
         'sqft_size',
         'rent_fee',
         'description',
+        'thumbnail_image',
+        'gallery_images',
         'status',
+    ];
+
+    protected $casts = [
+        'gallery_images' => Json::class,
     ];
 
     public function building(): BelongsTo

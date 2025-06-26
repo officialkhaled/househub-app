@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->unsignedInteger('sqft_size');
             $table->decimal('rent_fee', 10, 2);
             $table->text('description')->nullable();
+            $table->string('thumbnail_image')->nullable();
+            $table->json('gallery_images')->nullable();
             $table->enum('status', ['available', 'rented', 'leaving_soon'])->default('available')
                 ->comment('Available, Rented, Leaving Soon');
 

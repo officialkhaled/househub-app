@@ -35,9 +35,9 @@
 
                     <div class="block block-rounded">
                         <div class="block-content text-center">
-                            <div class="py-4">
+                            <div class="mb-3">
                                 <div class="mb-3">
-                                    <img class="img-avatar img-avatar96" src="{{ asset('assets/media/avatars/avatar15.jpg') }}" alt="">
+                                    <img class="img-avatar img-avatar96" src="{{ asset('assets/media/avatars/avatar15.jpg') }}" alt="Avatar">
                                 </div>
                                 <h1 class="fs-lg mb-0">
                                     {{ $invoice->renter?->name }}
@@ -48,6 +48,7 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="block-content bg-body-light text-center">
                             <div class="row items-push text-uppercase">
                                 <div class="col-6 col-md-3">
@@ -76,8 +77,8 @@
                         </div>
                         <div class="mt-4">
                             <div class="table-responsive">
-                                <table class="table table-borderless table-striped table-vcenter">
-                                    <thead>
+                                <table class="table table-bordered table-vcenter">
+                                    <thead class="table-info">
                                     <tr>
                                         <th class="text-center" style="width: 100px;">ID</th>
                                         <th class="d-none d-sm-table-cell text-center">Added</th>
