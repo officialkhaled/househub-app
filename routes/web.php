@@ -93,8 +93,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Invoices
     Route::group(['prefix' => 'invoices', 'as' => 'invoices.'], function () {
         Route::get('', [InvoiceController::class, 'index'])->name('index');
+        Route::get('{invoice}', [InvoiceController::class, 'show'])->name('show');
         Route::post('generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
-        Route::delete('{invoice}', [InvoiceController::class, 'destroy'])->name('destroy');
     });
 
 

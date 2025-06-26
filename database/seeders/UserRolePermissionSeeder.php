@@ -105,7 +105,7 @@ class UserRolePermissionSeeder extends Seeder
             'view renter-flat-assign', 'create renter-flat-assign', 'update renter-flat-assign', 'delete renter-flat-assign',
 
             // Invoice
-            'view invoice', 'generate invoice', 'delete invoice',
+            'view invoice', 'generate invoice',
 
             // Report
             'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',

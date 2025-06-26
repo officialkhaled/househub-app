@@ -85,7 +85,8 @@
                         <thead>
                         <tr>
                             <th class="text-center" style="width: 10%;">ID</th>
-                            <th>Month</th>
+                            <th>Renter</th>
+                            <th>Flat</th>
                             <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
                         </tr>
                         </thead>
@@ -93,24 +94,17 @@
                         @foreach($invoices as $invoice)
                             <tr>
                                 <td class="text-center">{{ $loop->index + 1 }}</td>
-                                <td class="fw-semibold">{{ $invoice->month }}</td>
+                                <td class="fw-semibold">{{ $invoice->renter?->name }}</td>
+                                <td class="fw-semibold">
+                                    {{ $invoice->flat?->name . ' (Building: ' . $invoice->flat?->building?->name . ', Floor: ' . $invoice->flat?->floor?->floor_number . ')' }}
+                                </td>
                                 <td class="d-none d-sm-table-cell">
                                     <div class="d-flex justify-content-center gap-2">
-                                        @can('update invoice')
-                                            <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-alt-success"
-                                               data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
-                                                <i class="fa-solid fa-edit"></i>
+                                        @can('view invoice')
+                                            <a href="{{ route('invoices.show', $invoice->id) }}" target="_blank" class="btn btn-alt-info"
+                                               data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="View Invoice">
+                                                <i class="fa-solid fa-eye"></i>
                                             </a>
-                                        @endcan
-                                        @can('delete invoice')
-                                            <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-alt-danger"
-                                                        data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Delete">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </form>
                                         @endcan
                                     </div>
                                 </td>
