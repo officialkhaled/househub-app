@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,21 +23,37 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $validated = $request->validated();
+        try {
+            $validated = $request->validated();
 
-        if ($request->hasFile('avatar')) {
-            uploadImage($request->file('avatar'), $user, 'images/avatar/');
+            DB::beginTransaction();
+
+            if ($request->hasFile('avatar')) {
+                uploadImage($request->file('avatar'), $user, 'images/avatar/');
+            }
+
+            $user->fill($validated);
+
+            if ($user->isDirty('email')) {
+                $user->email_verified_at = null;
+            }
+
+            $user->phone = $request->phone;
+
+            $user->save();
+
+            DB::commit();
+
+            notyf()->addSuccess('Profile Updated Successfully!');
+
+            return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError('Something Went Wrong!');
+
+            return Redirect::route('profile.edit')->with('status', 'profile-not-updated');
         }
-
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     public function destroy(Request $request): RedirectResponse

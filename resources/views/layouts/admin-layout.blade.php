@@ -195,9 +195,9 @@
         });
     });
 
-    function previewAvatar(event) {
+    function previewImage(event, previewId) {
         const input = event.target;
-        const preview = document.getElementById('preview_avatar');
+        const preview = document.getElementById(previewId);
 
         if (input.files && input.files[0]) {
             const reader = new FileReader();

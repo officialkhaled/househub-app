@@ -17,13 +17,13 @@ if (!function_exists('storageAsset')) {
 if (!function_exists('uploadImage')) {
     function uploadImage($file, $model, $folder = 'images'): void
     {
-        if ($model->image_path && Storage::exists('public/' . $model->image_path)) {
-            Storage::delete('public/' . $model->image_path);
+        if ($model->avatar && Storage::exists('public/' . $model->avatar)) {
+            Storage::delete('public/' . $model->avatar);
         }
 
         $imageName = $folder . '/' . time() . '.' . $file->getClientOriginalExtension();
         $file->move(storage_path('app/public/' . $folder), basename($imageName));
-        $model->image_path = $imageName;
+        $model->avatar = $imageName;
 
         $model->save();
     }

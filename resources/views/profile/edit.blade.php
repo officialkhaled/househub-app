@@ -26,7 +26,7 @@
     <div class="content content-full content-boxed">
         <div class="block block-rounded">
             <div class="block-content">
-                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
@@ -59,10 +59,10 @@
                                 <label class="form-label">Your Avatar</label>
                                 <div class="push">
                                     <img class="img-avatar" src="{{ auth()->user()->avatar ? storageAsset(auth()->user()->avatar) : asset('assets/media/avatars/avatar1.jpg') }}"
-                                         alt="Avatar">
+                                         alt="Avatar" id="avatar_image_preview">
                                 </div>
                                 <label class="form-label" for="avatar">Choose a new avatar</label>
-                                <input class="form-control" type="file" id="avatar">
+                                <input class="form-control" name="avatar" type="file" id="avatar" onchange="previewImage(event, 'avatar_image_preview')">
                             </div>
                         </div>
                     </div>
