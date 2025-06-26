@@ -1,8 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# HouseHub Application
-
-# 🏠 House Rent Management System
+# 🏠 HouseHub - House Rent Management System
 
 A simple and user-friendly house rent management system built with **Laravel 10**, using the **Breeze starter kit** for authentication.  
 This version is designed specifically for **landlords** to manage multiple buildings, floors, flats, renters, rent reports, and monthly invoices.
