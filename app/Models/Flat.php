@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Flat extends Model
@@ -28,5 +29,10 @@ class Flat extends Model
     public function floor(): BelongsTo
     {
         return $this->belongsTo(Floor::class, 'floor_id')->withDefault();
+    }
+
+    public function utilities(): HasMany
+    {
+        return $this->hasMany(Utility::class, 'flat_id', 'id');
     }
 }

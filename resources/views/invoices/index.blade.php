@@ -51,9 +51,9 @@
             <div class="col-6 col-lg-3">
                 <a class="block block-rounded block-link-shadow text-center h-100 mb-0">
                     <div class="block-content py-5">
-                        <div class="fs-3 fw-semibold mb-1">12</div>
+                        <div class="fs-3 fw-semibold mb-1">{{ $rentersCount }}</div>
                         <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
-                            Renters Count
+                            Current Flat Renters
                         </p>
                     </div>
                 </a>

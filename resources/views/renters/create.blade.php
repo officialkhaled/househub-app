@@ -63,7 +63,8 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <input type="file" class="form-control form-control-alt" id="nid" name="nid">
+                            <input type="file" class="form-control form-control-alt" id="nid" name="nid"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Upload NID">
                         </div>
                     </div>
 

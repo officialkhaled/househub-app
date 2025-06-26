@@ -13,8 +13,11 @@ class InvoiceController extends Controller
             ->latest()
             ->get();
 
+        $rentersCount = $invoices->unique('renter_id')->count();
+
         return view('invoices.index', [
             'invoices' => $invoices,
+            'rentersCount' => $rentersCount,
         ]);
     }
 
