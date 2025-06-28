@@ -219,6 +219,21 @@
                 @endcanany
 
                 @canany([
+                           'view payment', 'create payment', 'update payment', 'delete payment',
+                       ])
+                    <li class="nav-main-heading">Payment Records</li>
+                @endcanany
+
+                @canany(['view payment', 'create payment', 'update payment', 'delete payment'])
+                    <li class="nav-main-item {{ request()->routeIs('payments*') ? 'open' : '' }}">
+                        <a class="nav-main-link {{ request()->routeIs('payments*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
+                            <i class="nav-main-link-icon fa-brands fa-paypal"></i>
+                            <span class="nav-main-link-name">Payments</span>
+                        </a>
+                    </li>
+                @endcanany
+
+                @canany([
                             'view permission', 'create permission', 'update permission', 'delete permission',
                             'view role', 'create role', 'update role', 'delete role',
                             'view user', 'create user', 'update user', 'delete user',

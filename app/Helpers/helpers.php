@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('formatTaka')) {
+    function formatTaka($amount): string
+    {
+        return number_format($amount, 2) . ' Tk.';
+    }
+}
+
 if (!function_exists('stockImage')) {
     function stockImage($path = 'stock_image.jpg'): string
     {

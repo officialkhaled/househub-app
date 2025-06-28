@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/simplemde/simplemde.min.css') }}">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+
     <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/dashmix.min.css') }}">
 
     <script src="{{ asset('assets/js/setTheme.js') }}"></script>
@@ -53,6 +55,14 @@
         /* Firefox */
         input[type=number] {
             -moz-appearance: textfield;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
         }
     </style>
 
@@ -152,6 +162,9 @@
 <script src="{{ asset('assets/js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/simplemde/simplemde.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/ckeditor5-inline/build/ckeditor.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -163,6 +176,7 @@
             'jq-rangeslider',
             'jq-masked-inputs',
             'jq-pw-strength',
+            'js-ckeditor5',
         ];
 
         if (document.querySelector('.js-simplemde')) {

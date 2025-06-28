@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'payments';
 
     protected $fillable = [
@@ -16,6 +19,14 @@ class Payment extends Model
         'payment_date',
         'amount',
         'note',
+    ];
+
+    protected $casts = [
+        'month' => 'date',
+        'payment_date' => 'date',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function renter(): BelongsTo

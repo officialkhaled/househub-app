@@ -63,20 +63,20 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title fw-bold">Invoices</h3>
-                <div class="d-flex gap-2">
-                    @can('generate invoice')
-                        <a href="{{ route('invoices.generate-invoice') }}" class="btn btn-alt-primary">
-                            <i class="fa-solid fa-gear me-1"></i>
-                            Configure Invoice
-                        </a>
-                    @endcan
-                    @can('generate invoice')
-                        <a href="{{ route('invoices.generate-invoice') }}" class="btn btn-primary">
-                            <i class="fa-solid fa-wand-magic-sparkles me-1"></i>
-                            Generate Invoice
-                        </a>
-                    @endcan
-                </div>
+{{--                <div class="d-flex gap-2">--}}
+{{--                    @can('generate invoice')--}}
+{{--                        <a href="{{ route('invoices.generate-invoice') }}" class="btn btn-alt-primary">--}}
+{{--                            <i class="fa-solid fa-gear me-1"></i>--}}
+{{--                            Configure Invoice--}}
+{{--                        </a>--}}
+{{--                    @endcan--}}
+{{--                    @can('generate invoice')--}}
+{{--                        <a href="{{ route('invoices.generate-invoice') }}" class="btn btn-primary">--}}
+{{--                            <i class="fa-solid fa-wand-magic-sparkles me-1"></i>--}}
+{{--                            Generate Invoice--}}
+{{--                        </a>--}}
+{{--                    @endcan--}}
+{{--                </div>--}}
             </div>
 
             <div class="block-content">

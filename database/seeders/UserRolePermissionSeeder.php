@@ -107,6 +107,9 @@ class UserRolePermissionSeeder extends Seeder
             // Invoice
             'view invoice', 'generate invoice',
 
+            // Payment
+            'view payment', 'create payment', 'update payment', 'delete payment',
+
             // Report
             'view month-wise-report', 'create month-wise-report', 'update month-wise-report', 'delete month-wise-report',
         ];

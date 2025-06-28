@@ -7,6 +7,7 @@ use App\Http\Controllers\RenterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommonApiController;
@@ -26,6 +27,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
     Route::get('/get-floors', [CommonApiController::class, 'getFloors'])->name('get-floors');
     Route::get('/get-flats', [CommonApiController::class, 'getFlats'])->name('get-flats');
+    Route::get('/get-renter-flat', [CommonApiController::class, 'getRenterFlat'])->name('get-renter-flat');
+    Route::get('/get-amount-to-be-paid', [CommonApiController::class, 'getAmountToBePaid'])->name('get-amount-to-be-paid');
 });
 
 
@@ -97,6 +100,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('generate-invoice', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
     });
 
+    // Payments
+    Route::group(['prefix' => 'payments', 'as' => 'payments.'], function () {
+        Route::get('', [PaymentController::class, 'index'])->name('index');
+        Route::get('create', [PaymentController::class, 'create'])->name('create');
+        Route::post('', [PaymentController::class, 'store'])->name('store');
+        Route::get('{payment}', [PaymentController::class, 'edit'])->name('edit');
+        Route::put('{payment}', [PaymentController::class, 'update'])->name('update');
+        Route::delete('{payment}', [PaymentController::class, 'destroy'])->name('destroy');
+    });
 
     // Settings
     Route::group(['prefix' => 'permissions', 'as' => 'permissions.'], function () {

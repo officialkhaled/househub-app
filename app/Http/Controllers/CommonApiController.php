@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Flat;
 use App\Models\Floor;
+use App\Models\Renter;
 use Illuminate\Http\Request;
+use App\Models\RenterFlatAssign;
 
 class CommonApiController extends Controller
 {
@@ -31,6 +33,31 @@ class CommonApiController extends Controller
 
         return response()->json([
             'data' => $flats,
+            'message' => 'success'
+        ]);
+    }
+
+    public function getRenterFlat(Request $request)
+    {
+        $flat = RenterFlatAssign::query()
+            ->with(['flat'])
+            ->when($request->renter_id, function ($query) use ($request) {
+                $query->where('id', $request->renter_id);
+            })
+            ->first();
+
+        return response()->json([
+            'data' => $flat,
+            'message' => 'success'
+        ]);
+    }
+
+    public function getAmountToBePaid(Request $request)
+    {
+        $data = [];
+
+        return response()->json([
+            'data' => $data,
             'message' => 'success'
         ]);
     }

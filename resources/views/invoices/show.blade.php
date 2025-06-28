@@ -3,7 +3,12 @@
 @section('title',  "Invoice for " . $month)
 @section('content')
 
-    <div class="bg-body-light">
+    @php
+        $totalUtilitiesAmount = $invoice->flat?->utilities->sum('amount');
+        $totalAmount = $invoice->flat?->rent_fee + $totalUtilitiesAmount;
+    @endphp
+
+    <div class="bg-body-light no-print">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row align-items-sm-center">
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -22,11 +27,14 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title fw-bold">Billing Month: <span class="text-primary">{{ $month }}</span></h3>
-                <div class="d-flex gap-2">
-                    <a href="{{ route('invoices.index') }}" class="btn btn-primary">
-                        <i class="fa-solid fa-arrow-left me-1"></i>
-                        Back
+                <div class="d-flex justify-content-between gap-2 no-print">
+                    <a href="{{ route('invoices.index') }}" class="btn btn-alt-primary text-white">
+                        <i class="fa-solid fa-circle-arrow-left"></i>
                     </a>
+                    <button type="button" class="btn btn-primary" onclick="window.print()">
+                        <i class="fa-solid fa-print me-1"></i>
+                        Print
+                    </button>
                 </div>
             </div>
 
@@ -47,73 +55,67 @@
                         </div>
                     </div>
 
-                    <div class="block-content bg-body-light text-center">
+                    <div class="block-content bg-body-light text-center rounded">
                         <div class="row items-push text-uppercase">
-                            <div class="col-6 col-md-3">
+                            <div class="col-6 col-md-3" style="border-right: 2px solid #343A40">
                                 <div class="fw-semibold text-dark mb-1">House Rent</div>
-                                <a class="link-fx fs-3" href="javascript:void(0)">${{ number_format($invoice->flat?->rent_fee, 2) ?? 0 }}</a>
+                                <a class="link-fx fs-5" href="javascript:void(0)">{{ formatTaka($invoice->flat?->rent_fee) ?? 0 }}</a>
                             </div>
-                            <div class="col-6 col-md-3">
+                            <div class="col-6 col-md-3" style="border-right: 2px solid #343A40">
                                 <div class="fw-semibold text-dark mb-1">Previous Due</div>
-                                <a class="link-fx fs-3" href="javascript:void(0)">${{ number_format(0, 2) }}</a>
+                                <a class="link-fx fs-5" href="javascript:void(0)">{{ formatTaka(0) }}</a>
                             </div>
-                            <div class="col-6 col-md-3">
+                            <div class="col-6 col-md-3" style="border-right: 2px solid #343A40">
                                 <div class="fw-semibold text-dark mb-1">Balance</div>
-                                <a class="link-fx fs-3" href="javascript:void(0)">${{ number_format(0, 2) }}</a>
+                                <a class="link-fx fs-5" href="javascript:void(0)">{{ formatTaka(0) }}</a>
                             </div>
                             <div class="col-6 col-md-3">
                                 <div class="fw-semibold text-dark mb-1">Total - To Pay</div>
-                                <a class="link-fx fs-3" href="javascript:void(0)">${{ number_format(($invoice->flat?->rent_fee + 500 + 1080), 2) }}</a>
+                                <a class="link-fx fs-5" href="javascript:void(0)">{{ formatTaka($totalAmount) }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="block block-rounded">
-                    <div class="block-header block-header-default">
+                    <div class="block-header block-header-default rounded">
                         <h3 class="block-title">Bill Breakdown</h3>
                     </div>
                     <div class="mt-4">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-vcenter">
-                                <thead class="table-info">
-                                <tr>
-                                    <th class="text-center" style="width: 100px;">ID</th>
-                                    <th class="d-none d-sm-table-cell text-center">Added</th>
-                                    <th class="d-none d-md-table-cell">Product</th>
-                                    <th>Status</th>
-                                    <th class="d-none d-sm-table-cell text-end">Value</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                                </thead>
+                            <table class="table table-vcenter">
                                 <tbody>
                                 <tr>
-                                    <td class="text-center fs-sm">
-                                        <a class="fw-semibold" href="#">
-                                            PID.0154 </a>
-                                    </td>
-                                    <td class="d-none d-sm-table-cell text-center fs-sm">02/05/2024</td>
-                                    <td class="d-none d-md-table-cell fs-sm">
-                                        <a class="fw-semibold" href="#">Product #4</a>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success">Available</span>
-                                    </td>
-                                    <td class="text-end d-none d-sm-table-cell fs-sm">
-                                        <strong>$95,00</strong>
-                                    </td>
-                                    <td class="text-center fs-sm">
-                                        <a class="btn btn-sm btn-alt-secondary" href="#">
-                                            <i class="fa fa-fw fa-eye"></i>
-                                        </a>
-                                        <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)">
-                                            <i class="fa fa-fw fa-times text-danger"></i>
-                                        </a>
-                                    </td>
+                                    <th class="text-center fs-md" width="40%">House Rent</th>
+                                    <td class="d-none d-sm-table-cell text-center fs-md">{{ formatTaka($invoice->flat?->rent_fee) ?? 0 }}</td>
+                                </tr>
+                                @foreach($invoice->flat?->utilities as $utility)
+                                    <tr>
+                                        <th class="text-center fs-md" width="40%">{{ $utility->name ?? '' }}</th>
+                                        <td class="d-none d-sm-table-cell text-center fs-md">{{ formatTaka($utility->amount) ?? 0 }}</td>
+                                    </tr>
+                                @endforeach
+
+                                <tr class="table-active fs-lg">
+                                    <th class="text-center" width="40%">Grand Total</th>
+                                    <td class="d-none d-sm-table-cell text-center">{{ formatTaka($totalAmount) ?? 0 }}</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-content block-content-full text-center mt-3">
+                <div class="d-flex justify-content-between gap-4 p-4">
+                    <div>
+                        <div style="border-top: 2px solid #343A40; width: 200px; margin: 0 auto;"></div>
+                        <p class="mb-0 fw-semibold">Landlord Signature</p>
+                    </div>
+                    <div>
+                        <div style="border-top: 2px solid #343A40; width: 200px; margin: 0 auto;"></div>
+                        <p class="mb-0 fw-semibold">Renter Signature</p>
                     </div>
                 </div>
             </div>
