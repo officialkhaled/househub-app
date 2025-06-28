@@ -35,6 +35,9 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/', function () {
+        return redirect()->route('dashboard');
+    });
 
     Route::group(['prefix' => 'buildings', 'as' => 'buildings.'], function () {
         Route::get('', [BuildingController::class, 'index'])->name('index');
