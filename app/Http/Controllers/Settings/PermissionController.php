@@ -30,15 +30,15 @@ class PermissionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'unique:permissions,name'
-            ]
-        ]);
-
         try {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'string',
+                    'unique:permissions,name'
+                ]
+            ]);
+
             DB::beginTransaction();
 
             Permission::create([
@@ -53,7 +53,7 @@ class PermissionController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -66,15 +66,15 @@ class PermissionController extends Controller
 
     public function update(Request $request, Permission $permission)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'unique:permissions,name,' . $permission->id
-            ]
-        ]);
-
         try {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'string',
+                    'unique:permissions,name,' . $permission->id
+                ]
+            ]);
+
             DB::beginTransaction();
 
             $permission->update([
@@ -89,7 +89,7 @@ class PermissionController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -110,7 +110,7 @@ class PermissionController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

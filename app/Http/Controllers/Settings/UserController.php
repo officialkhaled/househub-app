@@ -33,14 +33,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|max:20',
-            'roles' => 'required'
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:users,email',
+                'password' => 'required|string|min:8|max:20',
+                'roles' => 'required'
+            ]);
+
             DB::beginTransaction();
 
             $user = User::create([
@@ -59,7 +59,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -78,13 +78,13 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8|max:20',
-            'roles' => 'required'
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'password' => 'nullable|string|min:8|max:20',
+                'roles' => 'required'
+            ]);
+
             DB::beginTransaction();
 
             $data = [
@@ -109,7 +109,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -130,7 +130,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

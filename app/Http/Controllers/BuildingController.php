@@ -32,17 +32,17 @@ class BuildingController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'house_number' => 'required',
-            'address' => 'required',
-        ], [
-            'name.required' => 'Building Name is Required',
-            'house_number.required' => 'House Number is Required',
-            'address.required' => 'Address is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required',
+                'house_number' => 'required',
+                'address' => 'required',
+            ], [
+                'name.required' => 'Building Name is Required',
+                'house_number.required' => 'House Number is Required',
+                'address.required' => 'Address is Required',
+            ]);
+
             DB::beginTransaction();
 
             Building::create([
@@ -62,7 +62,7 @@ class BuildingController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -77,17 +77,17 @@ class BuildingController extends Controller
 
     public function update(Request $request, Building $building)
     {
-        $request->validate([
-            'name' => 'required',
-            'house_number' => 'required',
-            'address' => 'required',
-        ], [
-            'name.required' => 'Building Name is Required',
-            'house_number.required' => 'House Number is Required',
-            'address.required' => 'Address is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required',
+                'house_number' => 'required',
+                'address' => 'required',
+            ], [
+                'name.required' => 'Building Name is Required',
+                'house_number.required' => 'House Number is Required',
+                'address.required' => 'Address is Required',
+            ]);
+
             DB::beginTransaction();
 
             $building->update([
@@ -106,7 +106,7 @@ class BuildingController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -127,7 +127,7 @@ class BuildingController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

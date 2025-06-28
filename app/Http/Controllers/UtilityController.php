@@ -37,15 +37,15 @@ class UtilityController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'amount' => 'required',
-        ], [
-            'name.required' => 'Name is Required',
-            'amount.required' => 'Amount is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required',
+                'amount' => 'required',
+            ], [
+                'name.required' => 'Name is Required',
+                'amount.required' => 'Amount is Required',
+            ]);
+
             DB::beginTransaction();
 
             Utility::create([
@@ -62,7 +62,7 @@ class UtilityController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -80,15 +80,15 @@ class UtilityController extends Controller
 
     public function update(Request $request, Utility $utility)
     {
-        $request->validate([
-            'name' => 'required',
-            'amount' => 'required',
-        ], [
-            'name.required' => 'Name is Required',
-            'amount.required' => 'Amount is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required',
+                'amount' => 'required',
+            ], [
+                'name.required' => 'Name is Required',
+                'amount.required' => 'Amount is Required',
+            ]);
+
             DB::beginTransaction();
 
             $utility->update([
@@ -105,7 +105,7 @@ class UtilityController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -126,7 +126,7 @@ class UtilityController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

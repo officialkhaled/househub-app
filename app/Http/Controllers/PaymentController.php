@@ -150,7 +150,7 @@ class PaymentController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

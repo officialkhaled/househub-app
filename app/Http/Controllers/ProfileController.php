@@ -58,20 +58,24 @@ class ProfileController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        try {
+            $request->validateWithBag('userDeletion', [
+                'password' => ['required', 'current_password'],
+            ]);
 
-        $user = $request->user();
+            $user = $request->user();
 
-        Auth::logout();
+            Auth::logout();
 
-        deleteFileIfExists($user->avatar);
-        $user->delete();
+            deleteFileIfExists($user->avatar);
+            $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+            return Redirect::to('/');
+        } catch (\Throwable $th) {
+            return Redirect::back()->withErrors(['password' => '<PASSWORD>']);
+        }
     }
 }

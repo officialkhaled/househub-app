@@ -38,23 +38,23 @@ class FlatController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'building_id' => 'required',
-            'floor_id' => 'required',
-            'name' => 'required',
-            'number_of_rooms' => 'required',
-            'sqft_size' => 'required',
-            'rent_fee' => 'required',
-        ], [
-            'building_id.required' => 'Building is Required',
-            'floor_id.required' => 'Floor is Required',
-            'name.required' => 'Name is Required',
-            'number_of_rooms.required' => 'Number of Rooms is Required',
-            'sqft_size.required' => 'SQFT Size is Required',
-            'rent_fee.required' => 'Rent Fee is Required',
-        ]);
-
         try {
+            $request->validate([
+                'building_id' => 'required',
+                'floor_id' => 'required',
+                'name' => 'required',
+                'number_of_rooms' => 'required',
+                'sqft_size' => 'required',
+                'rent_fee' => 'required',
+            ], [
+                'building_id.required' => 'Building is Required',
+                'floor_id.required' => 'Floor is Required',
+                'name.required' => 'Name is Required',
+                'number_of_rooms.required' => 'Number of Rooms is Required',
+                'sqft_size.required' => 'SQFT Size is Required',
+                'rent_fee.required' => 'Rent Fee is Required',
+            ]);
+
             DB::beginTransaction();
 
             Flat::create([
@@ -75,7 +75,7 @@ class FlatController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -93,19 +93,19 @@ class FlatController extends Controller
 
     public function update(Request $request, Flat $flat)
     {
-        $request->validate([
-            'name' => 'required',
-            'number_of_rooms' => 'required',
-            'sqft_size' => 'required',
-            'rent_fee' => 'required',
-        ], [
-            'name.required' => 'Name is Required',
-            'number_of_rooms.required' => 'Number of Rooms is Required',
-            'sqft_size.required' => 'SQFT Size is Required',
-            'rent_fee.required' => 'Rent Fee is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required',
+                'number_of_rooms' => 'required',
+                'sqft_size' => 'required',
+                'rent_fee' => 'required',
+            ], [
+                'name.required' => 'Name is Required',
+                'number_of_rooms.required' => 'Number of Rooms is Required',
+                'sqft_size.required' => 'SQFT Size is Required',
+                'rent_fee.required' => 'Rent Fee is Required',
+            ]);
+
             DB::beginTransaction();
 
             $flat->update([
@@ -124,7 +124,7 @@ class FlatController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -145,7 +145,7 @@ class FlatController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

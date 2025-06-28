@@ -31,15 +31,15 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'unique:roles,name'
-            ]
-        ]);
-
         try {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'string',
+                    'unique:roles,name'
+                ]
+            ]);
+
             DB::beginTransaction();
 
             Role::create([
@@ -54,7 +54,7 @@ class RoleController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -69,15 +69,15 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'unique:roles,name,' . $role->id
-            ]
-        ]);
-
         try {
+            $request->validate([
+                'name' => [
+                    'required',
+                    'string',
+                    'unique:roles,name,' . $role->id
+                ]
+            ]);
+
             DB::beginTransaction();
 
             $role->update([
@@ -92,7 +92,7 @@ class RoleController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -113,7 +113,7 @@ class RoleController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }
@@ -137,15 +137,27 @@ class RoleController extends Controller
 
     public function givePermissionToRole(Request $request, $roleId)
     {
-        $request->validate([
-            'permission' => 'required'
-        ]);
+        try {
+            $request->validate([
+                'permission' => 'required'
+            ]);
 
-        $role = Role::findOrFail($roleId);
-        $role->syncPermissions($request->permission);
+            DB::beginTransaction();
 
-        notyf()->addSuccess('Permission Added to Role Successfully.');
+            $role = Role::findOrFail($roleId);
+            $role->syncPermissions($request->permission);
 
-        return redirect()->back();
+            DB::commit();
+
+            notyf()->addSuccess('Permission Added to Role Successfully.');
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            notyf()->addError($th->getMessage());
+
+            return redirect()->back();
+        }
     }
 }

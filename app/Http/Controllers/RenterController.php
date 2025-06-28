@@ -25,16 +25,16 @@ class RenterController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:renters',
-            'phone' => 'required',
-        ], [
-            'name.required' => 'Name is Required',
-            'name.unique' => 'Name is Already Taken',
-            'phone.required' => 'Phone is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => 'required|unique:renters',
+                'phone' => 'required',
+            ], [
+                'name.required' => 'Name is Required',
+                'name.unique' => 'Name is Already Taken',
+                'phone.required' => 'Phone is Required',
+            ]);
+
             DB::beginTransaction();
 
             $nidPath = null;
@@ -58,7 +58,7 @@ class RenterController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -73,19 +73,19 @@ class RenterController extends Controller
 
     public function update(Request $request, Renter $renter)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('renters')->ignore($renter->id),
-            ],
-            'phone' => 'required',
-        ], [
-            'name.required' => 'Name is Required',
-            'name.unique' => 'Name is Already Taken',
-            'phone.required' => 'Phone is Required',
-        ]);
-
         try {
+            $request->validate([
+                'name' => [
+                    'required',
+                    Rule::unique('renters')->ignore($renter->id),
+                ],
+                'phone' => 'required',
+            ], [
+                'name.required' => 'Name is Required',
+                'name.unique' => 'Name is Already Taken',
+                'phone.required' => 'Phone is Required',
+            ]);
+
             DB::beginTransaction();
 
             $nidPath = $renter->nid;
@@ -111,7 +111,7 @@ class RenterController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -132,7 +132,7 @@ class RenterController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

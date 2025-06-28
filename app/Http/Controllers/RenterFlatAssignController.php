@@ -39,17 +39,17 @@ class RenterFlatAssignController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'renter_id' => 'required',
-            'flat_id' => 'required',
-            'start_month' => 'required',
-        ], [
-            'renter_id.required' => 'Renter is Required',
-            'flat_id.required' => 'Flat is Required',
-            'start_month.required' => 'Start Month is Required',
-        ]);
-
         try {
+            $request->validate([
+                'renter_id' => 'required',
+                'flat_id' => 'required',
+                'start_month' => 'required',
+            ], [
+                'renter_id.required' => 'Renter is Required',
+                'flat_id.required' => 'Flat is Required',
+                'start_month.required' => 'Start Month is Required',
+            ]);
+
             DB::beginTransaction();
 
             RenterFlatAssign::create([
@@ -70,7 +70,7 @@ class RenterFlatAssignController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -85,13 +85,13 @@ class RenterFlatAssignController extends Controller
 
     public function update(Request $request, RenterFlatAssign $renterFlatAssign)
     {
-        $request->validate([
-            'end_month' => 'required|date',
-        ], [
-            'end_month.required' => 'End Month is Required',
-        ]);
-
         try {
+            $request->validate([
+                'end_month' => 'required|date',
+            ], [
+                'end_month.required' => 'End Month is Required',
+            ]);
+
             DB::beginTransaction();
 
             $endMonth = Carbon::parse($request->end_month);
@@ -117,7 +117,7 @@ class RenterFlatAssignController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -138,7 +138,7 @@ class RenterFlatAssignController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }

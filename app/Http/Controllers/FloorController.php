@@ -37,15 +37,15 @@ class FloorController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'building_id' => 'required',
-            'floor_number' => 'required',
-        ], [
-            'building_id.required' => 'Building is Required',
-            'floor_number.required' => 'Floor Number is Required',
-        ]);
-
         try {
+            $request->validate([
+                'building_id' => 'required',
+                'floor_number' => 'required',
+            ], [
+                'building_id.required' => 'Building is Required',
+                'floor_number.required' => 'Floor Number is Required',
+            ]);
+
             DB::beginTransaction();
 
             Floor::create([
@@ -61,7 +61,7 @@ class FloorController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -79,15 +79,15 @@ class FloorController extends Controller
 
     public function update(Request $request, Floor $floor)
     {
-        $request->validate([
-            'building_id' => 'required',
-            'floor_number' => 'required',
-        ], [
-            'building_id.required' => 'Building is Required',
-            'floor_number.required' => 'Floor Number is Required',
-        ]);
-
         try {
+            $request->validate([
+                'building_id' => 'required',
+                'floor_number' => 'required',
+            ], [
+                'building_id.required' => 'Building is Required',
+                'floor_number.required' => 'Floor Number is Required',
+            ]);
+
             DB::beginTransaction();
 
             $floor->update([
@@ -103,7 +103,7 @@ class FloorController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back()->withInput();
         }
@@ -124,7 +124,7 @@ class FloorController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            notyf()->addError('Something Went Wrong.');
+            notyf()->addError($th->getMessage());
 
             return redirect()->back();
         }
