@@ -36,7 +36,10 @@
                             <th class="text-center" style="width: 10%;">ID</th>
                             <th>Name</th>
                             <th>Flat</th>
-                            <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
+                            <th>Payment for Month</th>
+                            @canany(['update payment', 'delete payment'])
+                                <th class="d-none d-sm-table-cell" style="width: 20%;">Action</th>
+                            @endcanany
                         </tr>
                         </thead>
                         <tbody>
@@ -47,26 +50,29 @@
                                 <td class="fw-semibold">
                                     {{ $payment->flat?->name . ' (Building: ' . $payment->flat?->building?->name . ', Floor: ' . $payment->flat?->floor?->floor_number . ')' }}
                                 </td>
-                                <td class="d-none d-sm-table-cell">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        @can('update payment')
-                                            <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-alt-success"
-                                               data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
-                                                <i class="fa-solid fa-edit"></i>
-                                            </a>
-                                        @endcan
-                                        @can('delete payment')
-                                            <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" data-confirm-delete>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-alt-danger"
-                                                        data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Delete">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        @endcan
-                                    </div>
-                                </td>
+                                <td class="fw-semibold">{{ $payment->month->format('M, Y') }}</td>
+                                @canany(['update payment', 'delete payment'])
+                                    <td class="d-none d-sm-table-cell">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            @can('update payment')
+                                                <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-alt-success"
+                                                   data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Edit">
+                                                    <i class="fa-solid fa-edit"></i>
+                                                </a>
+                                            @endcan
+                                            {{--                                        @can('delete payment')--}}
+                                            {{--                                            <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" data-confirm-delete>--}}
+                                            {{--                                                @csrf--}}
+                                            {{--                                                @method('DELETE')--}}
+                                            {{--                                                <button type="submit" class="btn btn-alt-danger"--}}
+                                            {{--                                                        data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="Delete">--}}
+                                            {{--                                                    <i class="fa-solid fa-trash"></i>--}}
+                                            {{--                                                </button>--}}
+                                            {{--                                            </form>--}}
+                                            {{--                                        @endcan--}}
+                                        </div>
+                                    </td>
+                                @endcanany
                             </tr>
                         @endforeach
                         </tbody>

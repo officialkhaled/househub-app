@@ -96,7 +96,7 @@
                                     </tr>
                                 @endforeach
 
-                                <tr class="table-active fs-lg">
+                                <tr class="fs-lg" style="border-top: 2px solid #343A40; border-bottom: none !important;">
                                     <th class="text-center" width="40%">Grand Total</th>
                                     <td class="d-none d-sm-table-cell text-center">{{ formatTaka($totalAmount) ?? 0 }}</td>
                                 </tr>
