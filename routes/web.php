@@ -106,7 +106,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Payments
     Route::group(['prefix' => 'payments', 'as' => 'payments.'], function () {
         Route::get('', [PaymentController::class, 'index'])->name('index');
-        Route::get('create', [PaymentController::class, 'create'])->name('create');
+        Route::get('/create', [PaymentController::class, 'create'])->name('create');
         Route::post('', [PaymentController::class, 'store'])->name('store');
         Route::get('{payment}', [PaymentController::class, 'edit'])->name('edit');
         Route::put('{payment}', [PaymentController::class, 'update'])->name('update');
